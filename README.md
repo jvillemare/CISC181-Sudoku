@@ -8,9 +8,9 @@ PLEASE IGNORE! This SudokuBLL project is for a CISC 181 course.
 This is a quick cheatsheet for those that are new to git in the command line. Each bullet point below explains a different command in git.
 
 - **Clone a repository**
-   - ```git clone https://github.com/user_name/SUAS-Competition.git``` : This command will clone a remote git repository locally in the current directory
+   - ```git clone https://github.com/<user_name>/CISC181-Sudoku.git``` : This command will clone a remote git repository locally in the current directory
 - **Help**
-   - ```git remote add suas https://github.com/FlintHill/SUAS-Competition``` : This will add a remote repository to the local git repository, allowing you to pull/push to a different remote
+   - ```git remote add suas https://github.com/jvillemare/CISC181-Sudoku``` : This will add a remote repository to the local git repository, allowing you to pull/push to a different remote
 - **Rebase your Local Repository**
    - ```git pull --rebase origin master``` : This will update your local repository with the origin's master branch. If you want to update your local repository from the official repository, run ```git pull --rebase suas master```. This will pull the master branch from the ```suas``` remote repository. These commands should be run after every time you commit, and before you make changes to your local code
 - **Track (add) your changes**
