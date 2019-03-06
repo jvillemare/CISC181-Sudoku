@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author jvillemarette
+ *
+ */
+package pkgEnum;
