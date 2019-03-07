@@ -32,7 +32,11 @@ public class Sudoku extends LatinSquare {
 	}
 	
 	public boolean hasDuplicates() {
-		// I already finished this.
+		for(int[] oned : this.getPuzzle())
+			if(super.hasDuplicates(oned))
+				return true;
+		
+
 		return false;
 	}
 	
@@ -43,6 +47,10 @@ public class Sudoku extends LatinSquare {
 	
 	public boolean isSudoku() {
 		// TODO: Yisi will do this.
+		
+		// ...
+		// fixed!
+		
 		return false;
 	}
 	
