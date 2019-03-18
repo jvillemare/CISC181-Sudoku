@@ -18,7 +18,7 @@ public class Sudoku extends LatinSquare {
 	
 	public int[][] getPuzzle() {
 		// TODO: Yifan will do this.
-		return null;
+		return super.getLatinSquare();
 	}
 	
 	public int[] getRegion(int r) {
