@@ -58,12 +58,22 @@ public class Sudoku extends LatinSquare {
 		// TODO: Aris will do this.
 		
 		boolean isValidValue = false;
-		
-		if(iValue <= iCol+1)
-			if(iValue <= iRow+1)
+
+		if (super.hasDuplicates(getRow(iRow)) || super.hasDuplicates(getColumn(iCol)) || super.ContainsZero() == true) 
+		{
+			return isValidValue;
+		}else { 
+			if(super.doesElementExist(getRow(iRow), iValue) && super.doesElementExist(getColumn(iCol), iValue))
 				isValidValue = true;
+		}
+
+		
 		
 		return isValidValue;
+	}
+
+	
+}
 	}
 
 	
