@@ -59,9 +59,9 @@ public class Sudoku extends LatinSquare {
 		
 		boolean isValidValue = false;
 		
-		if(iValue <= iCol+1) 
+		if(iValue <= iCol+1)
 			if(iValue <= iRow+1)
-			isValidValue = true;
+				isValidValue = true;
 		
 		return isValidValue;
 	}
