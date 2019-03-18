@@ -56,7 +56,14 @@ public class Sudoku extends LatinSquare {
 	
 	public boolean isValidValue(int iCol, int iRow, int iValue) {
 		// TODO: Aris will do this.
-		return false;
+		
+		boolean isValidValue = false;
+		
+		if(iValue <= iCol+1) 
+			if(iValue <= iRow+1)
+			isValidValue = true;
+		
+		return isValidValue;
 	}
 
 	
