@@ -66,15 +66,12 @@ public class Sudoku extends LatinSquare {
 			if(super.doesElementExist(getRow(iRow), iValue) && super.doesElementExist(getColumn(iCol), iValue))
 				isValidValue = true;
 		}
-
-		
 		
 		return isValidValue;
 	}
 
 	
 }
-	}
+	
 
 	
-}
