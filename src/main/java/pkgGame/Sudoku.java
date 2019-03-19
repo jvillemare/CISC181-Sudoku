@@ -25,6 +25,7 @@ public class Sudoku extends LatinSquare {
 
 		return super.getLatinSquare();
 		
+
 	}
 	
 	public int[] getRegion(int r) {
@@ -118,3 +119,6 @@ public class Sudoku extends LatinSquare {
 
 	
 }
+	
+
+	
