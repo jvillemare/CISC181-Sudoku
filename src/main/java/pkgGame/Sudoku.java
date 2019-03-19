@@ -1,6 +1,7 @@
 package pkgGame;
 
 import pkgHelper.LatinSquare;
+import java.lang.Math; 
 
 public class Sudoku extends LatinSquare {
 
@@ -27,14 +28,31 @@ public class Sudoku extends LatinSquare {
 	}
 	
 	public int[] getRegion(int r) {
-
-		return null;
+		
+		int regionSize = (int) Math.sqrt(this.getPuzzle().length);
+		
+		return this.getRegion(r % regionSize, r / regionSize);
 		
 	}
 	
 	public int[] getRegion(int iCol, int iRow) {
+		
+		int[] product = new int[this.getPuzzle().length];
+		
+		int regionSize = (int) Math.sqrt(this.getPuzzle().length);
+		
+		int rowBase = iRow - (iRow % regionSize);
+		int colBase = iCol - (iCol % regionSize);
+		
+		int counter = 0;
 
-		return null;
+		for (int r = rowBase; r < regionSize + rowBase; r++) {
+			for (int c = colBase ; c < regionSize + colBase; c++) {
+				product[counter++] = this.getPuzzle()[r][c];
+			}
+		}
+		
+		return product;
 		
 	}
 	
