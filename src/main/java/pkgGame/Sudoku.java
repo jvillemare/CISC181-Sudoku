@@ -4,6 +4,14 @@ import pkgEnum.ePuzzleViolation;
 import pkgHelper.LatinSquare;
 import pkgHelper.PuzzleViolation;
 
+import java.util.Random;
+
+import java.util.Random;
+
+import java.util.Random;
+
+import java.util.Random;
+
 /**
  * Sudoku - This class extends LatinSquare, adding methods, constructor to
  * handle Sudoku logic
@@ -48,14 +56,16 @@ public class Sudoku extends LatinSquare {
 	 *             if the iSize given doesn't have a whole number square root
 	 */
 	public Sudoku(int iSize) throws Exception {
+		
 		this.iSize = iSize;
 
 		double SQRT = Math.sqrt(iSize);
-		if ((SQRT == Math.floor(SQRT)) && !Double.isInfinite(SQRT)) {
+		
+		if ((SQRT == Math.floor(SQRT)) && !Double.isInfinite(SQRT))
 			this.iSqrtSize = (int) SQRT;
-		} else {
+		else
 			throw new Exception("Invalid size");
-		}
+		
 	}
 
 	/**
@@ -69,16 +79,151 @@ public class Sudoku extends LatinSquare {
 	 * @throws Exception will be thrown if the length of the puzzle do not have a whole number square root
 	 */
 	public Sudoku(int[][] puzzle) throws Exception {
+		
 		super(puzzle);
+		
 		this.iSize = puzzle.length;
 		double SQRT = Math.sqrt(iSize);
-		if ((SQRT == Math.floor(SQRT)) && !Double.isInfinite(SQRT)) {
+		
+		if ((SQRT == Math.floor(SQRT)) && !Double.isInfinite(SQRT))
 			this.iSqrtSize = (int) SQRT;
-		} else {
+		else
 			throw new Exception("Invalid size");
-		}
 
 	}
+	
+	// =========== NEW FUNCTIONS TO WRITE ===========
+	
+	/**
+	 * Return region number based on given column and 
+	 * row Example, the following Puzzle: 
+	 * 0 1 2 3 
+	 * 1 2 3 4 
+	 * 3 4 1 2 
+	 * 4 1 3 2 
+	 * getRegionNumber(3,0) should return a value of 1
+	 * 
+	 * @param iCol
+	 * @param iRow
+	 * 
+	 * @return
+	 */
+	public int getRegionNumber(int iCol, int iRow) {
+		
+		// professor note: easy
+		// TODO: Yifang will do this.
+		
+		// hint: see first part of getRegion(int r)
+		
+		return 0; // << replace this
+		
+	}
+	
+	/**
+	 * This method will print the puzzle to the 
+	 * console (space between columns, line break after row.)
+	 */
+	public void printPuzzle() {
+		
+		// professor note: easy
+		// TODO: Yifang will do this.
+		
+		// hint: use a double-nested for-loop and a print statement
+		
+	}
+	
+	/**
+	 * After the puzzle is created, set the diagonal 
+	 * regions with random values.
+	 */
+	private void fillDiagonalRegions() {
+		
+		// professor note: very, very hard
+		// TODO: James will do this.
+		
+	}
+	
+	/**
+	 * purpose of this method is to set the values 
+	 * of a given region (they will be shuffled later) 
+	 * 
+	 * Example, the following Puzzle start state: 
+	 * 0 0 0 0 
+	 * 0 0 0 0 
+	 * 0 0 0 0 
+	 * 0 0 0 0 
+	 * SetRegion(2) would transform the Puzzle to:
+	 * 0 0 0 0 
+	 * 0 0 0 0 
+	 * 1 2 0 0 
+	 * 3 4 0 0 
+	 * 
+	 * @param r
+	 */
+	private void setRegion(int r) {
+		
+		// professor note: medium
+		// TODO: Aris will do this.
+		
+		// hint: you will have to use JUnit reflections in order
+		//		 to access this private procedure.
+		
+		// hint: this procedure will be incredibly
+		//       similar to the structure of getRegion(int r)
+		
+	}
+	
+	/**
+	 * purpose of this method is to set the values of a 
+	 * given region (they will be shuffled later) 
+	 * 
+	 * Example, the following Puzzle start state: 
+	 * 1 2 0 0 
+	 * 3 4 0 0 
+	 * 0 0 0 0 
+	 * 0 0 0 0 
+	 * ShuffleRegion(0) might transform the Puzzle to:
+	 * 2 3 0 0 
+	 * 1 4 0 0 
+	 * 0 0 0 0 
+	 * 0 0 0 0 
+	 * 
+	 * @param r
+	 */
+	private void shuffleRegion(int r) {
+		
+		// professor note: easy/medium
+		// TODO: Aris will do this.
+		
+		// hint: you will have to use JUnit reflections in order
+		//		 to access this private procedure.
+		
+		// hint: this procedure will be incredibly
+		//       similar to the structure of getRegion(int r)
+		
+		// hint: use the shuffleArray method, assuming it has
+		//       been implemented.
+		
+	}
+	
+	/**
+	 * this method will shuffle a given one-dimension array.
+	 * 
+	 * @param ar
+	 */
+	private void shuffleArray(int[] ar) {
+		
+		// professor note: easy
+		// TODO: Yisi will do this.
+		
+		// hint: you will have to use JUnit reflections in order
+		//		 to access this private procedure.
+		
+		// hint: use java.util.Random and a single for loop.
+		
+	}
+	
+	// =========== OLD EXISTING FUNCTIONS ===========
 
 	/**
 	 * getPuzzle - return the Sudoku puzzle
@@ -88,7 +233,9 @@ public class Sudoku extends LatinSquare {
 	 * @return - returns the LatinSquare instance
 	 */
 	public int[][] getPuzzle() {
+		
 		return super.getLatinSquare();
+		
 	}
 
 	/**
@@ -117,6 +264,7 @@ public class Sudoku extends LatinSquare {
 		int i = (iCol / iSqrtSize) + ((iRow / iSqrtSize) * iSqrtSize);
 
 		return getRegion(i);
+		
 	}
 
 	/**
@@ -138,11 +286,9 @@ public class Sudoku extends LatinSquare {
 	 *            given region
 	 * @return - returns a one-dimensional array from a given region of the puzzle
 	 */
-
 	public int[] getRegion(int r) {
 
 		int[] reg = new int[super.getLatinSquare().length];
-
 
 		int i = (r / iSqrtSize) * iSqrtSize;
 		int j = (r % iSqrtSize) * iSqrtSize;		
@@ -151,29 +297,27 @@ public class Sudoku extends LatinSquare {
 		int iCnt = 0;
 
 		for (; i < iMax; i++) {
-			for (j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++) {
+			for (j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++)
 				reg[iCnt++] = super.getLatinSquare()[i][j];
-			}
 		}
 
 		return reg;
+		
 	}
 	
- 
-	
 	@Override
-	public boolean hasDuplicates()
-	{
+	public boolean hasDuplicates() {
+		
 		if (super.hasDuplicates())
 			return true;
 		
 		for (int k = 0; k < this.getPuzzle().length; k++) {
-			if (super.hasDuplicates(getRegion(k))) {
+			if (super.hasDuplicates(getRegion(k)))
 				super.AddPuzzleViolation(new PuzzleViolation(ePuzzleViolation.DupRegion,k));
-			}
 		}
 	
 		return (super.getPV().size() > 0);
+		
 	}
 
 	/**
@@ -233,11 +377,11 @@ public class Sudoku extends LatinSquare {
 			}
 		}
 
-		if (ContainsZero()) {
+		if (ContainsZero())
 			return false;
-		}
 
 		return true;
+		
 	}
 
 	/**
@@ -256,19 +400,20 @@ public class Sudoku extends LatinSquare {
 	 */
 	public boolean isValidValue(int iCol, int iRow, int iValue) {
 		
-		if (doesElementExist(super.getRow(iRow),iValue))
-		{
+		if (doesElementExist(super.getRow(iRow),iValue)) {
 			return false;
 		}
-		if (doesElementExist(super.getColumn(iCol),iValue))
-		{
+		
+		if (doesElementExist(super.getColumn(iCol),iValue)) {
 			return false;
 		}
-		if (doesElementExist(this.getRegion(iCol, iRow),iValue))
-		{
+		
+		if (doesElementExist(this.getRegion(iCol, iRow),iValue)) {
 			return false;
 		}
 		
 		return true;
+		
 	}
+	
 }
