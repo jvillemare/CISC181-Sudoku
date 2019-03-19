@@ -1,6 +1,7 @@
 package pkgGame;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -19,6 +20,15 @@ public class SudokuTest {
 		LatinSquare LS = new LatinSquare(MySquare);
 		
 		assertTrue(LS.isLatinSquare());
+		
+	}
+	
+	@Test
+	public void createSudoku_Test() {
+		
+		Sudoku s = new Sudoku(9);
+		
+		assertTrue(s instanceof Sudoku);
 		
 	}
 	
@@ -64,13 +74,15 @@ public class SudokuTest {
 		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
 		};
 		
+		int[] expected = {5, 3, 4, 6, 7, 2, 1, 9, 8};
+		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertArrayEquals(expected, s.getRegion(0));
 		
 	}
 	
-	@Test
+	@Test(expected = IndexOutOfBoundsException.class)
 	public void getRegion_TestA2() {
 		
 		// get invalid region
@@ -89,9 +101,11 @@ public class SudokuTest {
 		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
 		};
 		
+		int[] expected = {5, 3, 4, 6, 7, 2, 1, 9, 8};
+		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertArrayEquals(expected, s.getRegion(100));	
 		
 	}
 	
@@ -114,13 +128,15 @@ public class SudokuTest {
 		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
 		};
 		
+		int[] expected = {5, 3, 4, 6, 7, 2, 1, 9, 8};
+		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertArrayEquals(expected, s.getRegion(0, 0));
 		
 	}
 	
-	@Test
+	@Test(expected = IndexOutOfBoundsException.class)
 	public void getRegion_TestB2() {
 		
 		// get invalid region
@@ -139,9 +155,11 @@ public class SudokuTest {
 		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
 		};
 		
+		int[] expected = {5, 3, 4, 6, 7, 2, 1, 9, 8};
+		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertArrayEquals(expected, s.getRegion(100));
 		
 	}
 	
@@ -166,7 +184,7 @@ public class SudokuTest {
 		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertTrue(!s.hasDuplicates());
 		
 	}
 	
@@ -177,7 +195,7 @@ public class SudokuTest {
 		
 		int[][] puzzle = {
 			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
-		    {6, 7, 2, 1, 9, 5, 3, 4, 8},
+		    {6, 7, 4, 1, 9, 5, 3, 4, 8},
 		    {1, 9, 8, 3, 4, 2, 5, 6, 7},
 		        
 		    {8, 5, 9, 7, 6, 1, 4, 2, 3},
@@ -191,7 +209,7 @@ public class SudokuTest {
 		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertTrue(s.hasDuplicates());
 		
 	}
 	
@@ -202,7 +220,7 @@ public class SudokuTest {
 		
 		int[][] puzzle = {
 			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
-		    {6, 7, 2, 1, 9, 5, 3, 4, 8},
+		    {6, 7, 4, 1, 9, 5, 3, 4, 8},
 		    {1, 9, 8, 3, 4, 2, 5, 6, 7},
 		        
 		    {8, 5, 9, 7, 6, 1, 4, 2, 3},
@@ -216,7 +234,7 @@ public class SudokuTest {
 		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertFalse(s.isPartialSudoku());
 		
 	}
 	
@@ -226,22 +244,22 @@ public class SudokuTest {
 		// has no duplicates
 		
 		int[][] puzzle = {
-			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
-		    {6, 7, 2, 1, 9, 5, 3, 4, 8},
-		    {1, 9, 8, 3, 4, 2, 5, 6, 7},
-		        
-		    {8, 5, 9, 7, 6, 1, 4, 2, 3},
-		    {4, 2, 6, 8, 5, 3, 7, 9, 1},
-		    {7, 1, 3, 9, 2, 4, 8, 5, 6},
-		        
-		    {9, 6, 1, 5, 3, 7, 2, 8, 4},
-		    {2, 8, 7, 4, 1, 9, 6, 3, 5},
-		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
-		};
-		
+				{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
+			    {6, 7, 2, 1, 9, 5, 3, 4, 8},
+			    {1, 9, 8, 3, 4, 2, 5, 6, 7},
+			        
+			    {8, 5, 9, 7, 6, 1, 4, 2, 3},
+			    {4, 2, 6, 8, 5, 3, 7, 9, 1},
+			    {7, 1, 3, 9, 2, 4, 8, 5, 6},
+			        
+			    {9, 6, 1, 5, 3, 7, 2, 8, 4},
+			    {2, 8, 7, 4, 1, 9, 6, 3, 5},
+			    {3, 4, 5, 2, 8, 6, 1, 7, 9}
+			};
+			
 		Sudoku s = new Sudoku(puzzle);
-		
-		assertArrayEquals(puzzle, s.getPuzzle());
+			
+		assertTrue(s.isPartialSudoku());
 		
 	}
 	
@@ -301,22 +319,22 @@ public class SudokuTest {
 		// partial sudoku but does contain zeros
 		
 		int[][] puzzle = {
-			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
-		    {6, 7, 2, 1, 9, 5, 3, 4, 8},
-		    {1, 9, 8, 3, 4, 2, 5, 6, 7},
-		        
-		    {8, 5, 9, 7, 6, 1, 4, 2, 3},
-		    {4, 2, 6, 8, 5, 3, 7, 9, 1},
-		    {7, 1, 3, 9, 2, 4, 8, 5, 6},
-		        
-		    {9, 6, 1, 5, 3, 7, 2, 8, 4},
-		    {2, 8, 7, 4, 1, 9, 6, 3, 5},
-		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
-		};
-		
+				{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
+			    {6, 7, 2, 1, 9, 5, 3, 4, 8},
+			    {1, 9, 8, 3, 4, 2, 5, 6, 7},
+			        
+			    {8, 5, 9, 7, 6, 1, 4, 2, 3},
+			    {4, 2, 6, 8, 5, 3, 7, 9, 1},
+			    {7, 1, 3, 9, 2, 4, 8, 5, 6},
+			        
+			    {9, 6, 1, 5, 3, 7, 2, 8, 4},
+			    {2, 8, 7, 4, 1, 9, 6, 3, 5},
+			    {3, 4, 5, 2, 8, 6, 1, 7, 9}
+			};
+			
 		Sudoku s = new Sudoku(puzzle);
-		
-		assertArrayEquals(puzzle, s.getPuzzle());
+			
+		assertTrue(s.isSudoku());
 		
 	}
 	
@@ -391,7 +409,7 @@ public class SudokuTest {
 		
 		Sudoku s = new Sudoku(puzzle);
 		
-		assertArrayEquals(puzzle, s.getPuzzle());
+		assertTrue(s.isValidValue(0, 0, 5));
 		
 	}
 	

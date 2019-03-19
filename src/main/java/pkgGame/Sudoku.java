@@ -76,7 +76,7 @@ public class Sudoku extends LatinSquare {
 		else
 			return false;
 		
-		if(super.ContainsZero())
+		if(!super.ContainsZero())
 			isPartialSudoku = true;
 		else 
 			return false;
