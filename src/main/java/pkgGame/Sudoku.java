@@ -170,6 +170,21 @@ public class Sudoku extends LatinSquare {
 		
 		// hint: this procedure will be incredibly
 		//       similar to the structure of getRegion(int r)
+		int i = (r / iSqrtSize) * iSqrtSize;
+		int j = (r % iSqrtSize) * iSqrtSize;		
+		int jMax = j + iSqrtSize;
+		int iMax = i + iSqrtSize;
+		int iValue = 0;
+
+		for (; i < iMax; i++) {
+			
+			for (j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++) {
+				int[][] temp = super.getLatinSquare();
+				temp[i][j] = iValue++;
+				super.setLatinSquare(temp);
+			}
+			
+		}
 		
 	}
 	
@@ -199,10 +214,29 @@ public class Sudoku extends LatinSquare {
 		//		 to access this private procedure.
 		
 		// hint: this procedure will be incredibly
-		//       similar to the structure of getRegion(int r)
+		//       similar to the structure of setRegion(int r)
 		
 		// hint: use the shuffleArray method, assuming it has
 		//       been implemented.
+		int i = iSqrtSize;
+		int j = iSqrtSize;		
+		int jMax = j + iSqrtSize;
+		int iMax = i + iSqrtSize;
+		
+		int[] shuffled = getRegion(r);
+		
+		shuffleArray(shuffled);
+		
+		for (; i < iMax; i++) {
+			
+			for (j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++) {
+				
+				
+
+			}
+			
+		}
+		
 		
 	}
 	
