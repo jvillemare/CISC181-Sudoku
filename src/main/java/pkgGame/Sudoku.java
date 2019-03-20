@@ -111,11 +111,13 @@ public class Sudoku extends LatinSquare {
 	public int getRegionNumber(int iCol, int iRow) {
 		
 		// professor note: easy
-		// TODO: Yifang will do this.
+		// TODO: Yifan will do this.
 		
 		// hint: see first part of getRegion(int r)
 		
-		return 0; // << replace this
+		int i = (iCol / iSqrtSize) + ((iRow / iSqrtSize) * iSqrtSize);
+		
+		return i; // << replace this
 		
 	}
 	
@@ -126,9 +128,18 @@ public class Sudoku extends LatinSquare {
 	public void printPuzzle() {
 		
 		// professor note: easy
-		// TODO: Yifang will do this.
+		// TODO: Yifan will do this.
 		
 		// hint: use a double-nested for-loop and a print statement
+		
+		int[][] p = getPuzzle();
+		
+		for (int col=0; col<=iSize; col++) {
+			for(int row=0; row<=iSize; row++) {
+				System.out.print(p[col][row] + " ");
+			}
+			System.out.print("\n");
+		}
 		
 	}
 	
@@ -170,7 +181,8 @@ public class Sudoku extends LatinSquare {
 		
 		// hint: this procedure will be incredibly
 		//       similar to the structure of getRegion(int r)
-		
+	
+
 	}
 	
 	/**
