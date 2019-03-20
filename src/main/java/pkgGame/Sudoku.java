@@ -119,6 +119,8 @@ public class Sudoku extends LatinSquare {
 		
 		return i; // << replace this
 		
+		// finished code
+		
 	}
 	
 	/**
