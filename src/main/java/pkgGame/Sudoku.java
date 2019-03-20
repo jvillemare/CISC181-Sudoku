@@ -213,6 +213,7 @@ public class Sudoku extends LatinSquare {
 	 */
 	private void shuffleArray(int[] ar) {
 		
+		
 		// professor note: easy
 		// TODO: Yisi will do this.
 		
@@ -220,6 +221,8 @@ public class Sudoku extends LatinSquare {
 		//		 to access this private procedure.
 		
 		// hint: use java.util.Random and a single for loop.
+		
+		// test
 		
 	}
 	
