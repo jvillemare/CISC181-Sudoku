@@ -223,8 +223,20 @@ public class Sudoku extends LatinSquare {
 		// hint: use java.util.Random and a single for loop.
 		
 		// test
-		
+		int number1, temp;
+		Random random = new Random();
+		for (int i = ar.length-1; 1>0;i--) {
+			number1 = random.nextInt(i+1);
+			temp = ar[number1];
+			ar[number1] = ar[i];
+			ar[i] = temp;
+		}
 	}
+			
+			
+		
+		
+	
 	
 	// =========== OLD EXISTING FUNCTIONS ===========
 
