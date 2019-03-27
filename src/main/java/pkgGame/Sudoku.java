@@ -22,6 +22,9 @@ import java.util.Random;
  *
  */
 public class Sudoku extends LatinSquare {
+	public static void main(String[] args) {
+	}
+	
 
 	/**
 	 * 
@@ -225,7 +228,7 @@ public class Sudoku extends LatinSquare {
 		// test
 		int number1, temp;
 		Random random = new Random();
-		for (int i = ar.length-1; 1>0;i--) {
+		for (int i = ar.length-1; i>0;i--) {
 			number1 = random.nextInt(i+1);
 			temp = ar[number1];
 			ar[number1] = ar[i];
