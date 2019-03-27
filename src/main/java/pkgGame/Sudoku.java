@@ -164,27 +164,13 @@ public class Sudoku extends LatinSquare {
 		
 		// professor note: medium
 		// TODO: Aris will do this.
+		int[] ar = new int[(int)Math.sqrt(super.getLatinSquare().length)];
+		int i = 0;
 		
-		// hint: you will have to use JUnit reflections in order
-		//		 to access this private procedure.
+		for(i = 0; i < ar.length; i++)
+			ar[i] = i++;
 		
-		// hint: this procedure will be incredibly
-		//       similar to the structure of getRegion(int r)
-		int i = (r / iSqrtSize) * iSqrtSize;
-		int j = (r % iSqrtSize) * iSqrtSize;		
-		int jMax = j + iSqrtSize;
-		int iMax = i + iSqrtSize;
-		int iValue = 0;
-
-		for (; i < iMax; i++) {
-			
-			for (j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++) {
-				int[][] temp = super.getLatinSquare();
-				temp[i][j] = iValue++;
-				super.setLatinSquare(temp);
-			}
-			
-		}
+		updateRegion(r, ar);
 		
 	}
 	
@@ -218,25 +204,12 @@ public class Sudoku extends LatinSquare {
 		
 		// hint: use the shuffleArray method, assuming it has
 		//       been implemented.
-		int i = iSqrtSize;
-		int j = iSqrtSize;		
-		int jMax = j + iSqrtSize;
-		int iMax = i + iSqrtSize;
 		
 		int[] shuffled = getRegion(r);
 		
 		shuffleArray(shuffled);
 		
-		for (; i < iMax; i++) {
-			
-			for (j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++) {
-				
-				
-
-			}
-			
-		}
-		
+		updateRegion(r, shuffled);
 		
 	}
 	
@@ -254,6 +227,30 @@ public class Sudoku extends LatinSquare {
 		//		 to access this private procedure.
 		
 		// hint: use java.util.Random and a single for loop.
+		
+	}
+	
+	/**
+	 * this method will update a specific region.
+	 * 
+	 * @param r
+	 * @param ar
+	 */
+	private void updateRegion(int r, int[] ar) {
+		
+		int i = (r / iSqrtSize) * iSqrtSize;
+		int j = (r % iSqrtSize) * iSqrtSize;		
+		int jMax = j + iSqrtSize;
+		int iMax = i + iSqrtSize;
+		int iValue = -1;
+
+		for(; i < iMax; i++) {
+			for(j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++) {
+				int[][] temp = super.getLatinSquare();
+				temp[i][j] = ar[iValue++];
+				super.setLatinSquare(temp);
+			}
+		}
 		
 	}
 	
