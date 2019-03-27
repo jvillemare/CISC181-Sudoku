@@ -136,8 +136,8 @@ public class Sudoku extends LatinSquare {
 		
 		int[][] p = getPuzzle();
 		
-		for (int col=0; col<=iSize; col++) {
-			for(int row=0; row<=iSize; row++) {
+		for (int col=0; col<iSize; col++) {
+			for(int row=0; row<iSize; row++) {
 				System.out.print(p[col][row] + " ");
 			}
 			System.out.print("\n");
