@@ -22,9 +22,6 @@ import java.util.Random;
  *
  */
 public class Sudoku extends LatinSquare {
-	public static void main(String[] args) {
-	}
-	
 
 	/**
 	 * 

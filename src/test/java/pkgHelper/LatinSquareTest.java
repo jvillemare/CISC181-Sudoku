@@ -10,7 +10,7 @@ import pkgEnum.ePuzzleViolation;
 
 public class LatinSquareTest {
 
-	
+	@Test
 	public void hasDuplicates_test1() {
 
 		LatinSquare LS = new LatinSquare();
