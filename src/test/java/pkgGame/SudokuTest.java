@@ -2,8 +2,13 @@ package pkgGame;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SudokuTest {
@@ -12,8 +17,25 @@ public class SudokuTest {
 	
 	// TODO: Paul will do all the test methods.
 	
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	private final PrintStream originalOut = System.out;
+	private final PrintStream originalErr = System.err;
+
+	@Before
+	public void setUpStreams() {
+	    System.setOut(new PrintStream(outContent));
+	    System.setErr(new PrintStream(errContent));
+	}
+
+	@After
+	public void restoreStreams() {
+	    System.setOut(originalOut);
+	    System.setErr(originalErr);
+	}
+	
 	@Test
-	public void getRegionNumber_Test() throws Exception {
+	public void getRegionNumber_Test1() throws Exception {
 
 		int[][] puzzle = {
 			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
@@ -32,12 +54,36 @@ public class SudokuTest {
 
 	 	Sudoku s = new Sudoku(puzzle);
 
-	 	assertArrayEquals(puzzle, s.getPuzzle());
+	 	assertTrue(s.getRegionNumber(0, 0) == 0);
+
+	}
+	
+	@Test(expected = AssertionError.class)
+	public void getRegionNumber_Test2() throws Exception {
+
+		int[][] puzzle = {
+			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
+			{6, 7, 2, 1, 9, 5, 3, 4, 8},
+			{1, 9, 8, 3, 4, 2, 5, 6, 7},
+
+	 		{8, 5, 9, 7, 6, 1, 4, 2, 3},
+			{4, 2, 6, 8, 5, 3, 7, 9, 1},
+			{7, 1, 3, 9, 2, 4, 8, 5, 6},
+
+	 		{9, 6, 1, 5, 3, 7, 2, 8, 4},
+			{2, 8, 7, 4, 1, 9, 6, 3, 5},
+		    	    
+		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
+		};
+
+	 	Sudoku s = new Sudoku(puzzle);
+
+	 	assertTrue(s.getRegionNumber(100, 100) == 0);
 
 	}
 	
 	@Test
-	public void printPuzzle_Test() throws Exception {
+	public void printPuzzle_Test1() throws Exception {
 
 		int[][] puzzle = {
 			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
@@ -55,33 +101,43 @@ public class SudokuTest {
 		};
 
 	 	Sudoku s = new Sudoku(puzzle);
-
-	 	assertArrayEquals(puzzle, s.getPuzzle());
-
+	 	
+	 	s.printPuzzle();
+	 	
+	 	
+	 	assertEquals("5 3 4 6 7 8 9 1 2 \n"
+	 			+ "6 7 2 1 9 5 3 4 8 \n"
+	 			+ "1 9 8 3 4 2 5 6 7 \n"
+	 			+ "8 5 9 7 6 1 4 2 3 \n"
+	 			+ "4 2 6 8 5 3 7 9 1 \n"
+	 			+ "7 1 3 9 2 4 8 5 6 \n"
+	 			+ "9 6 1 5 3 7 2 8 4 \n"
+	 			+ "2 8 7 4 1 9 6 3 5 \n"
+	 			+ "3 4 5 2 8 6 1 7 9 \n", outContent.toString());
+	 			
 	}
 	
 	@Test
 	public void fillDiagonalRegions_Test() throws Exception {
 
-
 		int[][] puzzle = {
-			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
-			{6, 7, 2, 1, 9, 5, 3, 4, 8},
-			{1, 9, 8, 3, 4, 2, 5, 6, 7},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 
-	 		{8, 5, 9, 7, 6, 1, 4, 2, 3},
-			{4, 2, 6, 8, 5, 3, 7, 9, 1},
-			{7, 1, 3, 9, 2, 4, 8, 5, 6},
+		 	{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 
-	 		{9, 6, 1, 5, 3, 7, 2, 8, 4},
-			{2, 8, 7, 4, 1, 9, 6, 3, 5},
-		    	    
-		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
+		 	{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			    	    
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0}
 		};
 
-	 	Sudoku s = new Sudoku(puzzle);
+		Sudoku s = new Sudoku(puzzle);
 
-	 	assertArrayEquals(puzzle, s.getPuzzle());
+	 	assertFalse(Arrays.deepEquals(s.getPuzzle(), puzzle));
 
 	}
 	
@@ -89,23 +145,23 @@ public class SudokuTest {
 	public void setRegion_Test() throws Exception {
 
 		int[][] puzzle = {
-			{5, 3, 4, 6, 7, 8, 9, 1, 2}, 
-			{6, 7, 2, 1, 9, 5, 3, 4, 8},
-			{1, 9, 8, 3, 4, 2, 5, 6, 7},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 
-	 		{8, 5, 9, 7, 6, 1, 4, 2, 3},
-			{4, 2, 6, 8, 5, 3, 7, 9, 1},
-			{7, 1, 3, 9, 2, 4, 8, 5, 6},
+	 		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 
-	 		{9, 6, 1, 5, 3, 7, 2, 8, 4},
-			{2, 8, 7, 4, 1, 9, 6, 3, 5},
+	 		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 		    	    
-		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0}
 		};
 
 	 	Sudoku s = new Sudoku(puzzle);
-
-	 	assertArrayEquals(puzzle, s.getPuzzle());
+	 	
+	 	assertTrue(s.ContainsZero());
 
 	}
 	
@@ -126,11 +182,21 @@ public class SudokuTest {
 		    	    
 		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
 		};
-
-
-	 	Sudoku s = new Sudoku(puzzle);
-
-	 	assertArrayEquals(puzzle, s.getPuzzle());
+	 	
+	 	Sudoku instance = new Sudoku(puzzle);
+	 	
+	    Class<?> secretClass = instance.getClass();
+	 
+	    // Print all the method names & execution result
+	    Method methods[] = secretClass.getDeclaredMethods();
+	    
+	    for (Method method : methods) {
+	        method.setAccessible(true);
+	    }
+	    
+	    //Method a = secretClass.getMethod("shuffleRegion");
+	 	
+	 	//assertFalse(Arrays.deepEquals(instance.getPuzzle(), puzzle));
 
 	}
 	
@@ -152,10 +218,17 @@ public class SudokuTest {
 		    {3, 4, 5, 2, 8, 6, 1, 7, 9}
 		};
 
-
-	 	Sudoku s = new Sudoku(puzzle);
-
-	 	assertArrayEquals(puzzle, s.getPuzzle());
+	 	Sudoku instance = new Sudoku(puzzle);
+	 	
+	    Class<?> secretClass = instance.getClass();
+	 
+	    // Print all the method names & execution result
+	    Method methods[] = secretClass.getDeclaredMethods();
+	    
+	    
+	    //methods["shuffleArray"];
+	 	
+	 	//assertFalse(Arrays.deepEquals(instance.getPuzzle(), puzzle));
 
 	}
 	

@@ -110,12 +110,7 @@ public class Sudoku extends LatinSquare {
 	 */
 	public int getRegionNumber(int iCol, int iRow) {
 		
-		// professor note: easy
-		// TODO: Yifang will do this.
-		
-		// hint: see first part of getRegion(int r)
-		
-		return 0; // << replace this
+		return (iCol / iSqrtSize) + ((iRow / iSqrtSize) * iSqrtSize);
 		
 	}
 	
@@ -125,10 +120,12 @@ public class Sudoku extends LatinSquare {
 	 */
 	public void printPuzzle() {
 		
-		// professor note: easy
-		// TODO: Yifang will do this.
-		
-		// hint: use a double-nested for-loop and a print statement
+		for(int[] row : super.getLatinSquare()) {
+			for(int col : row)
+				System.out.print(col + " ");
+			
+			System.out.print("\n");
+		}
 		
 	}
 	
@@ -138,8 +135,10 @@ public class Sudoku extends LatinSquare {
 	 */
 	private void fillDiagonalRegions() {
 		
-		// professor note: very, very hard
-		// TODO: James will do this.
+		for(int i = 0; i < iSqrtSize; i++) {
+			setRegion(i * iSqrtSize);
+			shuffleRegion(i * iSqrtSize);
+		}
 		
 	}
 	
@@ -162,14 +161,13 @@ public class Sudoku extends LatinSquare {
 	 */
 	private void setRegion(int r) {
 		
-		// professor note: medium
-		// TODO: Aris will do this.
+		int[] ar = new int[(int)Math.sqrt(super.getLatinSquare().length)];
+		int i = 0;
 		
-		// hint: you will have to use JUnit reflections in order
-		//		 to access this private procedure.
+		for(i = 0; i < ar.length; i++)
+			ar[i] = i++;
 		
-		// hint: this procedure will be incredibly
-		//       similar to the structure of getRegion(int r)
+		updateRegion(r, ar);
 		
 	}
 	
@@ -192,17 +190,11 @@ public class Sudoku extends LatinSquare {
 	 */
 	private void shuffleRegion(int r) {
 		
-		// professor note: easy/medium
-		// TODO: Aris will do this.
+		int[] shuffled = getRegion(r);
 		
-		// hint: you will have to use JUnit reflections in order
-		//		 to access this private procedure.
+		shuffleArray(shuffled);
 		
-		// hint: this procedure will be incredibly
-		//       similar to the structure of getRegion(int r)
-		
-		// hint: use the shuffleArray method, assuming it has
-		//       been implemented.
+		updateRegion(r, shuffled);
 		
 	}
 	
@@ -213,15 +205,43 @@ public class Sudoku extends LatinSquare {
 	 */
 	private void shuffleArray(int[] ar) {
 		
-		// professor note: easy
-		// TODO: Yisi will do this.
+		int number1, temp;
 		
-		// hint: you will have to use JUnit reflections in order
-		//		 to access this private procedure.
+		Random random = new Random();
 		
-		// hint: use java.util.Random and a single for loop.
+		for (int i = ar.length-1; i>0;i--) {
+			number1 = random.nextInt(i+1);
+			temp = ar[number1];
+			ar[number1] = ar[i];
+			ar[i] = temp;
+		}
 		
 	}
+	
+	/**
+	 * this method will update a specific region.
+	 * 
+	 * @param r
+	 * @param ar
+	 */
+	private void updateRegion(int r, int[] ar) {
+		
+		int i = (r / iSqrtSize) * iSqrtSize;
+		int j = (r % iSqrtSize) * iSqrtSize;		
+		int jMax = j + iSqrtSize;
+		int iMax = i + iSqrtSize;
+		int iValue = -1;
+
+		for(; i < iMax; i++) {
+			for(j = (r % iSqrtSize) * iSqrtSize; j < jMax; j++) {
+				int[][] temp = super.getLatinSquare();
+				temp[i][j] = ar[iValue++];
+				super.setLatinSquare(temp);
+			}
+		}
+		
+	}
+
 	
 	// =========== OLD EXISTING FUNCTIONS ===========
 
