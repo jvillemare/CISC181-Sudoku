@@ -1,6 +1,7 @@
 package pkgGame;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Random;
 
 import pkgHelper.LatinSquare;
@@ -409,5 +410,67 @@ public class Sudoku extends LatinSquare {
 			ar[index] = ar[i];
 			ar[i] = a;
 		}
+		
 	}
+	
+	private class Cell {
+
+		private int iRow, iCol;
+		private ArrayList<Integer> validValues;
+		
+		public int getiRow() {
+			
+			return 0;
+			
+		}
+		
+		public int getiCol() {
+			
+			return 0;
+			
+		}
+		
+		@Override
+		public int hashCode() {
+			
+			return iCol;
+			
+		}
+		
+		public boolean equals(java.lang.Object o) {
+			
+			return false;	
+			
+		}
+		
+		public java.util.ArrayList<java.lang.Integer> getValidValues() {
+			
+			return null;
+			
+		}
+		
+		public void setValidValues​(java.util.HashSet<java.lang.Integer> hsValidValues) {	
+			
+		}
+		
+		public void ShuffleValidValues() {
+			
+		}
+		
+		/**
+		 * GetNextCell - get the next cell, 
+		 * 
+		 * @param c
+		 * @return cell object if it exists, 'null' if not.
+		 */
+		public Sudoku.Cell GetNextCell​(Sudoku.Cell c) {
+			
+			return null;
+			
+		}
+			
+	}
+	
 }
+
+
