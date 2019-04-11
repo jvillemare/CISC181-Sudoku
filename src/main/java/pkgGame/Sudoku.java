@@ -2,6 +2,11 @@ package pkgGame;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import pkgHelper.LatinSquare;
@@ -16,6 +21,8 @@ import pkgHelper.LatinSquare;
  *
  */
 public class Sudoku extends LatinSquare {
+	
+	private HashMap cells;
 
 	/**
 	 * 
@@ -63,6 +70,9 @@ public class Sudoku extends LatinSquare {
 		int[][] puzzle = new int[iSize][iSize];
 		super.setLatinSquare(puzzle);
 		FillDiagonalRegions();
+		
+		// TODO: Add the SetCells() and fillRemaining methods to the Sudoku constructor
+		
 	}
 
 	/**
@@ -78,9 +88,11 @@ public class Sudoku extends LatinSquare {
 	 *             number square root
 	 */
 	public Sudoku(int[][] puzzle) throws Exception {
+		
 		super(puzzle);
 		this.iSize = puzzle.length;
 		double SQRT = Math.sqrt(iSize);
+		
 		if ((SQRT == Math.floor(SQRT)) && !Double.isInfinite(SQRT)) {
 			this.iSqrtSize = (int) SQRT;
 		} else {
@@ -88,6 +100,86 @@ public class Sudoku extends LatinSquare {
 		}
 
 	}
+	
+	// =========================== NEW METHODS =========================== 
+	
+	/**
+	 * overload isValidValue, call by Cell.
+	 * 
+	 * @since Lab #4
+	 * 
+	 * @param c
+	 * @param iValue
+	 * @return ...
+	 */
+	public boolean isValidValue​(Sudoku.Cell c, int iValue) {
+		
+		Cell a = (Cell) this.cells.get(c.hashCode());
+		return a.getValidValues().contains(iValue);
+		
+	}
+	
+	/**
+	 * getAllCellNumbers - This method will return all the valid values 
+	 * remaining for a given cell (by col/row). 
+	 * 
+	 * For example, Cell [0,0] should return [3,4] 
+	 * 
+	 * 0 1 0 0
+	 * 2 0 0 4 
+	 * 0 0 0 0 
+	 * 0 0 0 0 
+	 * 
+	 * @param iCol	given column
+	 * @param iRow	given row
+	 * @since Lab #4
+	 * @return
+	 */
+	private java.util.HashSet<java.lang.Integer> getAllValidCellValues​(int iCol, int iRow) {
+		
+		// TODO: Fix when Bert hands down his HashSet v. ArrayList decision.
+		//Cell a = (Cell) this.cells.get(c.hashCode());
+		//return a.getValidValues();
+		return null;
+		
+	}
+	
+	/**
+	 * SetCells - purpose of this method is to create a HashMap of all the 
+	 * cells in the puzzle. 
+	 * 
+	 * If the puzzle is 9X9, there will be 81 cells in the puzzle. 
+	 * 
+	 * The key for the HashMap is the Cell's hash code 
+	 * The value for the HashMap is the Cell. 
+	 * The values in the HashSet for each cell's valid values should be shuffled
+	 * 
+	 * @since Lab #4
+	 */
+	private void setCells() {
+		
+		// TODO: ...
+		
+	}
+	
+	/**
+	 * fillRemaining - Recursive method to fill each cell... one by one... 
+	 * backtracking if the given value doesn't fit in the cell.
+	 * 
+	 * @since Lab #4
+	 * 
+	 * @param c		Cell that you're trying to fill
+	 * @return ...
+	 */
+	private boolean fillRemaining​(Sudoku.Cell c) {
+		
+		// TODO: ...
+		
+		return false;
+		
+	}
+	
+	// =========================== EXISTING METHODS =========================== 
 
 	/**
 	 * getPuzzle - return the Sudoku puzzle
@@ -174,7 +266,6 @@ public class Sudoku extends LatinSquare {
 	 *            given region
 	 * @return - returns a one-dimensional array from a given region of the puzzle
 	 */
-
 	public int[] getRegion(int r) {
 
 		int[] reg = new int[super.getLatinSquare().length];
@@ -416,56 +507,98 @@ public class Sudoku extends LatinSquare {
 	private class Cell {
 
 		private int iRow, iCol;
-		private ArrayList<Integer> validValues;
+		private java.util.ArrayList<java.lang.Integer> validValues;
 		
-		public int getiRow() {
-			
-			return 0;
-			
+		Cell(int iRow, int iCol) {
+			this.iRow = iRow;
+			this.iCol = iCol;
 		}
 		
-		public int getiCol() {
-			
-			return 0;
-			
-		}
+		/**
+		 * get the row of the cell.
+		 * 
+		 * @return
+		 */
+		@SuppressWarnings("unused")
+		public int getiRow() { return this.iRow; }
 		
+		/**
+		 * get the column of the cell.
+		 * 
+		 * @return
+		 */
+		@SuppressWarnings("unused")
+		public int getiCol() { return this.iCol; }
+		
+		/**
+		 * set hashcode to Objects.hash(iRow, iCol)
+		 * 
+		 * @return integer representation of hashCode.
+		 */
 		@Override
-		public int hashCode() {
-			
-			return iCol;
-			
-		}
+		public int hashCode() { return Objects.hash(iRow, iCol); }
 		
+		/**
+		 * override to ensure object is equal by Row/Col.
+		 * 
+		 * @return true if they equal, false if not.
+		 */
 		public boolean equals(java.lang.Object o) {
 			
-			return false;	
-			
-		}
-		
-		public java.util.ArrayList<java.lang.Integer> getValidValues() {
-			
-			return null;
-			
-		}
-		
-		public void setValidValues​(java.util.HashSet<java.lang.Integer> hsValidValues) {	
-			
-		}
-		
-		public void ShuffleValidValues() {
+			Cell c = (Cell) o;
+			return c.getiRow() == this.iRow && c.getiCol() == this.iCol;	
 			
 		}
 		
 		/**
-		 * GetNextCell - get the next cell, 
+		 * get the ArrayList of valid values.
 		 * 
-		 * @param c
-		 * @return cell object if it exists, 'null' if not.
+		 * @return ...
 		 */
-		public Sudoku.Cell GetNextCell​(Sudoku.Cell c) {
+		@SuppressWarnings("unused")
+		public ArrayList<Integer> getValidValues() { return this.validValues; }
+		
+		/**
+		 * set the ArrayList of validValues.  
+		 * 
+		 * You can’t (easily) shuffle a HashSet.
+		 * 
+		 * @param hsValidValues
+		 */
+		@SuppressWarnings("unused")
+		public void setValidValues​(java.util.HashSet<java.lang.Integer> hsValidValues) { 
 			
-			return null;
+			this.validValues.clear();
+			this.validValues.addAll(hsValidValues);
+			
+		}
+		
+		/**
+		 * Shuffle the validValues using Collections class.
+		 */
+		@SuppressWarnings("unused")
+		public void shuffleValidValues() { Collections.shuffle(this.validValues); }
+		
+		/**
+		 * This method will find the next valid value’s location in the puzzle, 
+		 * and return it in Cell form.
+		 * 
+		 * 	If the puzzle is 9X9
+		 *		Passed Cell Value [Row, Col]	Returned Cell Value [Row, Col]
+		 *		[0,0]							[0,1]
+		 *		[0,8]							[1,1]
+		 *		[1,8]							[1,2]
+		 *		[8,8]							Null (return null if you’re at the end of the puzzle
+		 * 
+		 * @param c 		a cell object
+		 * @param iSize 	...
+		 * @return cell 	object if it exists, 'null' if not.
+		 */
+		@SuppressWarnings("unused")
+		public Sudoku.Cell getNextCell​(Sudoku.Cell c, int iSize) {
+			
+			// TODO: Verify this is actually what Bert wants.
+			return new Cell((this.iRow % iSize) * iSize, (this.iRow / iSize) * iSize);
 			
 		}
 			
