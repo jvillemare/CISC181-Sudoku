@@ -137,7 +137,7 @@ public class Sudoku extends LatinSquare {
 	 */
 	private java.util.HashSet<java.lang.Integer> getAllValidCellValues​(int iCol, int iRow) {
 		
-		// TODO: Fix when Bert hands down his HashSet v. ArrayList decision.
+		// TODO: Convert between HashSet and ArrayList
 		//Cell a = (Cell) this.cells.get(c.hashCode());
 		//return a.getValidValues();
 		return null;
@@ -170,6 +170,8 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @param c		Cell that you're trying to fill
 	 * @return ...
+	 * @see <a href="https://www.geeksforgeeks.org/program-sudoku-generator/">
+	 * https://www.geeksforgeeks.org/program-sudoku-generator/</a>
 	 */
 	private boolean fillRemaining​(Sudoku.Cell c) {
 		
