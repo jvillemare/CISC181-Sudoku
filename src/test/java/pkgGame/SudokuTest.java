@@ -10,6 +10,187 @@ import org.junit.Test;
 
 public class SudokuTest {
 
+	// =========================== NEW METHODS =========================== 
+	
+	@Test
+	public void isValidValue_Test1() {
+		
+		// TODO: Yisi will do this...
+		// test with a valid value
+		
+		Sudoku s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void isValidValue_Test2() throws Exception {
+		
+		// TODO: Yisi will do this...
+		// test with a NON-valid value
+		
+		Sudoku s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void getAllValidCellValues_Test() throws Exception {
+		
+		// TODO: Paul will do this...
+		// simply pass an incomplete Sudoku puzzle
+		// check Bert's Word doc for an incomplete puzzle.
+		
+		//Sudoku s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void setCells_Test() throws Exception {
+		
+		// TODO: Yifan will do this...
+		// make sure there are Cell objects in Sudoku HashMap
+		
+		Sudoku s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void fillRemaining_Test() throws Exception {
+		
+		// TODO: Paul will do this...
+		// pass incomplete Sudoku puzzle and check to make sure it filled
+		// the Cells HashMap.
+		
+		Sudoku s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_Test() throws Exception {
+		
+		// TODO: Yifan will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_getiRow_Test() throws Exception {
+		
+		// TODO: Yisi will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_getiCol_Test() throws Exception {
+		
+		// TODO: Yisi will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_hashCode_Test() throws Exception {
+		
+		// TODO: Yisi will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_equals_Test() throws Exception {
+		
+		// TODO: Yisi will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_getValidValues_Test() throws Exception {
+		
+		// TODO: Yisi will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_setValidValues_Test() throws Exception {
+		
+		// TODO: Paul will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_shuffleValidValues_Test() throws Exception {
+		
+		// TODO: Paul will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	@Test
+	public void Cell_getNextCell_Test() throws Exception {
+		
+		// TODO: Paul will do this...
+		// ...
+		
+		Sudoku.Cell s = new Sudoku(9);
+		
+		//assertTrue(...);
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	// =========================== EXISTING METHODS ============================
+	
 	private void PrintStars() {
 		for (int i = 0; i < 50; i++)
 			System.out.print("*");
