@@ -118,7 +118,7 @@ public class SudokuTest {
 			s = (Sudoku) constructor.newInstance(puzzle);
 	        Class<?> Cell = Sudoku.class.getDeclaredClasses()[0];
 	        Constructor<?> constructor1 = Cell.getDeclaredConstructor(new Class[] {int.class, int.class});
-	        constructor.setAccessible(true);
+	        constructor1.setAccessible(true);
 	        Object cell = constructor1.newInstance(s);
 
 			Method mfillRemaining​ = c.getDeclaredMethod("fillRemaining​​", new Class[] {Cell});
@@ -232,7 +232,38 @@ public class SudokuTest {
 		// TODO: Paul will do this...
 		// ...
 		
-		//Sudoku.Cell s = new Sudoku(9);
+		int[][] puzzle = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 }, { 6, 0, 0, 1, 9, 5, 0, 0, 0 }, { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+				{ 8, 0, 0, 0, 6, 0, 0, 0, 3 }, { 4, 0, 0, 8, 0, 3, 0, 0, 1 }, { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+				{ 0, 6, 0, 0, 0, 0, 2, 8, 0 }, { 0, 0, 0, 4, 1, 9, 0, 0, 5 }, { 0, 0, 0, 0, 8, 0, 0, 7, 9 } };
+		Sudoku s;
+		
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int[][].class });
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(puzzle);
+	        Class<?> Cell = Sudoku.class.getDeclaredClasses()[0];
+	        Constructor<?> constructor1 = Cell.getDeclaredConstructor(new Class[] {int.class, int.class});
+	        constructor1.setAccessible(true);
+	        Object cell = constructor1.newInstance(s);
+	        
+			
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 		
 		//assertTrue(..).;
 
