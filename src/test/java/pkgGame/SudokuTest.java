@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -18,7 +19,7 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// test with a valid value
 		
-		Sudoku s = new Sudoku(9);
+		//Sudoku s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -43,9 +44,46 @@ public class SudokuTest {
 		// simply pass an incomplete Sudoku puzzle
 		// check Bert's Word doc for an incomplete puzzle.
 		
-		//Sudoku s = new Sudoku(9);
+		int[][] puzzle = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 }, { 6, 0, 0, 1, 9, 5, 0, 0, 0 }, { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+				{ 8, 0, 0, 0, 6, 0, 0, 0, 3 }, { 4, 0, 0, 8, 0, 3, 0, 0, 1 }, { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+				{ 0, 6, 0, 0, 0, 0, 2, 8, 0 }, { 0, 0, 0, 4, 1, 9, 0, 0, 5 }, { 0, 0, 0, 0, 8, 0, 0, 7, 9 } };
+		Sudoku s;
 		
-		//assertTrue(...);
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int[][].class });
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(puzzle);
+
+			Method mGetAllValidCellValues = c.getDeclaredMethod("getAllValidCellValues​", new Class[] {int.class, int.class});
+
+			PrintStars();
+			System.out.println("Testing method: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+			System.out.println("Original Puzzle:");
+			s.PrintPuzzle();
+			System.out.println("Original Region 0:");
+			System.out.println(Arrays.toString(s.getRegion(0)));
+
+			System.out.println("Set Puzzle:");
+			mGetAllValidCellValues.setAccessible(true);
+			System.out.print(mGetAllValidCellValues.invoke(s, 0, 2));
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
@@ -68,9 +106,51 @@ public class SudokuTest {
 		// pass incomplete Sudoku puzzle and check to make sure it filled
 		// the Cells HashMap.
 		
-		Sudoku s = new Sudoku(9);
+		int[][] puzzle = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 }, { 6, 0, 0, 1, 9, 5, 0, 0, 0 }, { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+				{ 8, 0, 0, 0, 6, 0, 0, 0, 3 }, { 4, 0, 0, 8, 0, 3, 0, 0, 1 }, { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+				{ 0, 6, 0, 0, 0, 0, 2, 8, 0 }, { 0, 0, 0, 4, 1, 9, 0, 0, 5 }, { 0, 0, 0, 0, 8, 0, 0, 7, 9 } };
+		Sudoku s;
 		
-		//assertTrue(...);
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int[][].class });
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(puzzle);
+	        Class<?> Cell = Sudoku.class.getDeclaredClasses()[0];
+	        Constructor<?> construtor = Cell.getDeclaredConstructor(new Class[] {int.class, int.class});
+	        constructor.setAccessible(true);
+	        Object cell = constructor.newInstance(s);
+
+			Method mfillRemaining​ = c.getDeclaredMethod("fillRemaining​​", new Class[] {Cell});
+
+			PrintStars();
+			System.out.println("Testing method: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+			System.out.println("Original Puzzle:");
+			s.PrintPuzzle();
+			System.out.println("Original Region 0:");
+			System.out.println(Arrays.toString(s.getRegion(0)));
+
+			System.out.println("Set Puzzle:");
+			mfillRemaining​.setAccessible(true);
+			mfillRemaining​.invoke(cell);
+			System.out.println(s.ContainsZero());	
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
@@ -80,7 +160,7 @@ public class SudokuTest {
 		// TODO: Yifan will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -92,7 +172,7 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -104,7 +184,7 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -116,7 +196,7 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -128,7 +208,7 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -140,7 +220,7 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -152,9 +232,9 @@ public class SudokuTest {
 		// TODO: Paul will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
-		//assertTrue(...);
+		//assertTrue(..).;
 
 	}
 	
@@ -164,7 +244,7 @@ public class SudokuTest {
 		// TODO: Paul will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
@@ -176,7 +256,7 @@ public class SudokuTest {
 		// TODO: Paul will do this...
 		// ...
 		
-		Sudoku.Cell s = new Sudoku(9);
+		//Sudoku.Cell s = new Sudoku(9);
 		
 		//assertTrue(...);
 
