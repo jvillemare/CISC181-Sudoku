@@ -117,9 +117,9 @@ public class SudokuTest {
 			constructor.setAccessible(true);
 			s = (Sudoku) constructor.newInstance(puzzle);
 	        Class<?> Cell = Sudoku.class.getDeclaredClasses()[0];
-	        Constructor<?> construtor = Cell.getDeclaredConstructor(new Class[] {int.class, int.class});
+	        Constructor<?> constructor1 = Cell.getDeclaredConstructor(new Class[] {int.class, int.class});
 	        constructor.setAccessible(true);
-	        Object cell = constructor.newInstance(s);
+	        Object cell = constructor1.newInstance(s);
 
 			Method mfillRemaining​ = c.getDeclaredMethod("fillRemaining​​", new Class[] {Cell});
 
