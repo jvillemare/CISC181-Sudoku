@@ -2,11 +2,15 @@ package pkgGame;
 
 import static org.junit.Assert.*;
 
+
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 public class SudokuTest {
@@ -93,9 +97,102 @@ public class SudokuTest {
 		// TODO: Yifan will do this...
 		// make sure there are Cell objects in Sudoku HashMap
 		
-		Sudoku s = new Sudoku(9);
+		/*
+		Sudoku s1 = new Sudoku(9);
+		s1.setCells();
 		
-		//assertTrue(...);
+		HashMap<Integer, Sudoku.Cell> hm = 
+				new HashMap<Integer, Sudoku.Cell>();
+		
+		for(int row = 0; row < 10; row++)
+			for(int col = 0; col < 10; col++)
+				hm.put(
+						(new Sudoku.Cell(row, col)).hashCode(), // key
+						new Sudoku.Cell(row, col)
+				);
+		
+		boolean cellsAreEquivalent = true;
+		
+		Collection<Sudoku.Cell> sudokuHashMapValues = s1.cells.values();
+		
+		ArrayList<Sudoku.Cell> sudokuCells =
+				new ArrayList<Sudoku.Cell>(sudokuHashMapValues);
+		
+		Collection<Sudoku.Cell> ourCellValues = hm.values();
+		
+		ArrayList<Sudoku.Cell> ourCells =
+				new ArrayList<Sudoku.Cell>(ourCellValues);
+		
+		for(int i = 0; ourCells.size(); i++)
+			if(!sudokuCells.get(i).equals(ourCells.get(i)))
+				cellsAreEquivalent = false;
+		
+		assertTrue(cellsAreEquivalent);
+		*/
+		
+		Sudoku s1 = null;
+		Sudoku.Cell s2 = null;
+		
+		try {
+			
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			constructor.setAccessible(true);
+			s1 = (Sudoku) constructor.newInstance(9);
+			
+			//s1.setCells();
+			Method mSetCells = c.getDeclaredMethod("setCells", new Class[] {});
+			mSetCells.invoke(s1, null);
+			
+			// note: based on stackoverflow.com/a/14112345/11228720
+			Constructor<Cell> constructor2 = 
+					Sudoku.Cell.class.getDeclaredConstructor(Sudoku.class);
+			constructor2.setAccessible(true);
+			
+			HashMap<Integer, Sudoku.Cell.class> hm = 
+					new HashMap<Integer, Sudoku.Cell.class>();
+			
+			for(int row = 0; row < 10; row++)
+				for(int col = 0; col < 10; col++)
+					hm.put(
+							(new Sudoku.Cell.class(row, col)).hashCode(), // key
+							(Sudoku.Cell.class) new constructor2.newInstance(row, col)
+					);
+			
+			Collection<Sudoku.Cell.class()> sudokuHashMapValues = s1.cells.values();
+			
+			ArrayList<Sudoku.Cell.class()> sudokuCells =
+					new ArrayList<Sudoku.Cell>(sudokuHashMapValues);
+			
+			Collection<Sudoku.Cell> ourCellValues = hm.values();
+			
+			ArrayList<Sudoku.Cell> ourCells =
+					new ArrayList<Sudoku.Cell>(ourCellValues);
+			
+			for(int i = 0; ourCells.size(); i++)
+				if(!sudokuCells.get(i).equals(ourCells.get(i)))
+					cellsAreEquivalent = false;
+			
+			assertTrue(cellsAreEquivalent);
+			
+			
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
@@ -157,12 +254,29 @@ public class SudokuTest {
 	@Test
 	public void Cell_Test() throws Exception {
 		
-		// TODO: Yifan will do this...
-		// ...
+		// TODO: Yifan will do this...		
+
+		Sudoku s = new Sudoku(9);
 		
-		//Sudoku.Cell s = new Sudoku(9);
+		Object inner;
 		
-		//assertTrue(...);
+		try {
+			
+			Constructor<Cell> c = 
+					Sudoku.Cell.class.getDeclaredConstructor(Sudoku.class);
+			
+			c.setAccessible(true);
+			
+			try {
+				
+				inner = c.newInstance(s);
+				
+			}
+			
+			
+		}
+		
+		assertTrue( (Sudoku.Cell)inner instanceof Sudoku.Cell );
 
 	}
 	
