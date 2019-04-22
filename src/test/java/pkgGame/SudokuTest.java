@@ -38,7 +38,7 @@ public class SudokuTest {
 		Sudoku s;
 		
 		try {
-			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
 			Constructor constructor = c.getConstructor(new Class[] { int[][].class });
 			constructor.setAccessible(true);
 			s = (Sudoku) constructor.newInstance(puzzle);
@@ -46,7 +46,7 @@ public class SudokuTest {
 			Method mSetCells = c.getDeclaredMethod("setCells", new Class[] { int.class });
 			Method mIsValidValue = c.getDeclaredMethod("isValidValue", new Class[] { int.class });
 			
-			mSetCells.invoke(s, null);
+			mSetCells.invoke(c, null);
 			
 			assertTrue((Boolean)mIsValidValue.invoke(s, 2) == true);
 
@@ -81,7 +81,7 @@ public class SudokuTest {
 		Sudoku s;
 		
 		try {
-			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
 			Constructor constructor = c.getConstructor(new Class[] { int[][].class });
 			constructor.setAccessible(true);
 			s = (Sudoku) constructor.newInstance(puzzle);
@@ -89,7 +89,7 @@ public class SudokuTest {
 			Method mSetCells = c.getDeclaredMethod("setCells", new Class[] { int.class });
 			Method mIsValidValue = c.getDeclaredMethod("isValidValue", new Class[] { int.class });
 			
-			mSetCells.invoke(s, null);
+			mSetCells.invoke(c, null);
 			
 			assertTrue((Boolean)mIsValidValue.invoke(s, 5) == false);
 
