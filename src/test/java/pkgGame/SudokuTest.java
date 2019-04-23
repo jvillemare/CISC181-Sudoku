@@ -358,55 +358,171 @@ public class SudokuTest {
 	@Test
 	public void Cell_getiRow_Test() throws Exception {
 		
-		// TODO: Yisi will do this...
-		// ...
+		// TODO: Aris will do this...
 		
-		//Sudoku.Cell s = new Sudoku(9);
+		/*
+		Sudoku.Cell s = new Sudoku.Cell(6,7);
 		
-		//assertTrue(...);
+		assertTrue(s.getiRow() == 6);
+		*/
+		
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
+			Constructor constructor = c.getConstructor(new Class[] { int.class, int.class });
+			constructor.setAccessible(true);
+			s = (Sudoku.Cell) constructor.newInstance(6, 7);
+
+			Method mgetiRow = c.getiRow();
+			
+			assertTrue(mgetiRow.invoke() == 6);
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
 	@Test
 	public void Cell_getiCol_Test() throws Exception {
 		
-		// TODO: Yisi will do this...
+		// TODO: Aris will do this...
 		// ...
+		/*
+		Sudoku.Cell s = new Sudoku.cell(2,3);
 		
-		//Sudoku.Cell s = new Sudoku(9);
-		
-		//assertTrue(...);
+		assertTrue(s.getiCol() == 3);
+		*/
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
+			Constructor constructor = c.getConstructor(new Class[] { int.class, int.class });
+			constructor.setAccessible(true);
+			s = (Sudoku.Cell) constructor.newInstance(2, 3);
+
+			Method mgetiCol = c.getiCol();
+			
+			assertTrue(mgetiCol.invoke() == 3);
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
 	@Test
 	public void Cell_hashCode_Test() throws Exception {
 		
-		// TODO: Yisi will do this...
-		// ...
+		// TODO: Aris will do this...
 		
-		//Sudoku.Cell s = new Sudoku(9);
+		/*
+		Sudoku.Cell s = new Sudoku.Cell(3,4);
+
+		assertTrue(s.hashCode() == 1058); // 1058 is the hashCode for a Sudoku Cell at 3, 4.
+		*/
 		
-		//assertTrue(...);
+		Sudoku.Cell s1;
+		
+		try {
+			
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
+			Constructor constructor = c.getConstructor(new Class[] { int.class, int.class });
+			constructor.setAccessible(true);
+			s1 = (Sudoku.Cell) constructor.newInstance(3, 4);
+			java.lang.reflect.Method mHashCode = c.getDeclaredMethod("hashCode", new Class[] {});;
+			
+			assertTrue((Integer)mHashCode.invoke(s1, null) == 1058);
+			
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
+
+	}
 
 	}
 	
 	@Test
 	public void Cell_equals_Test() throws Exception {
 		
-		// TODO: Yisi will do this...
-		// ...
+		// TODO: Aris will do this...
+
+		/*
+		Sudoku.Cell s1 = new Sudoku.Cell(3,4);
+		Sudoku.Cell s2 = new Sudoku.Cell(3,4);
+		assertTrue(s1.equals(s2));
+		*/
+	
+		Sudoku.Cell s1;
+		Sudoku.Cell s2;
 		
-		//Sudoku.Cell s = new Sudoku(9);
-		
-		//assertTrue(...);
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
+			Constructor constructor = c.getConstructor(new Class[] { int.class, int.class });
+			constructor.setAccessible(true);
+			s1 = (Sudoku.Cell) constructor.newInstance(3, 4);
+			s2 = (Sudoku.Cell) constructor.newInstance(3, 4);
+
+			java.lang.reflect.Method mequals = c.getDeclaredMethod("equals", new Class[] { int.class });;
+			
+			assertTrue((Boolean)mequals.invoke(s1, s2));
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
 	@Test
 	public void Cell_getValidValues_Test() throws Exception {
 		
-		// TODO: Yisi will do this...
+		// TODO: James will do this...
 		// ...
 		
 		//Sudoku.Cell s = new Sudoku(9);
@@ -461,7 +577,7 @@ public class SudokuTest {
 	@Test
 	public void Cell_shuffleValidValues_Test() throws Exception {
 		
-		// TODO: Paul will do this...
+		// TODO: James will do this...
 		// ...
 		
 		//Sudoku.Cell s = new Sudoku(9);
@@ -473,7 +589,7 @@ public class SudokuTest {
 	@Test
 	public void Cell_getNextCell_Test() throws Exception {
 		
-		// TODO: Paul will do this...
+		// TODO: James will do this...
 		// ...
 		
 		//Sudoku.Cell s = new Sudoku(9);
@@ -481,13 +597,6 @@ public class SudokuTest {
 		//assertTrue(...);
 
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	// =========================== EXISTING METHODS ============================
 	
