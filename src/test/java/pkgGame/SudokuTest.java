@@ -398,12 +398,13 @@ public class SudokuTest {
 	public void Cell_getiCol_Test() throws Exception {
 		
 		// TODO: Aris will do this...
-		// ...
+
 		/*
 		Sudoku.Cell s = new Sudoku.cell(2,3);
 		
 		assertTrue(s.getiCol() == 3);
 		*/
+		
 		try {
 			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
 			Constructor constructor = c.getConstructor(new Class[] { int.class, int.class });

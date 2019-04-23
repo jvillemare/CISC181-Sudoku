@@ -2,6 +2,7 @@ package pkgGame;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -136,11 +137,10 @@ public class Sudoku extends LatinSquare {
 	 * @return
 	 */
 	private java.util.HashSet<java.lang.Integer> getAllValidCellValues​(int iCol, int iRow) {
-		
-		// TODO: Convert between HashSet and ArrayList
-		//Cell a = (Cell) this.cells.get(c.hashCode());
-		//return a.getValidValues();
-		return null;
+ 
+		Cell c = new Cell(iCol, iRow);
+		Cell a = (Cell) this.cells.get(c.hashCode());
+		return new HashSet<Integer>(a.getValidValues());
 		
 	}
 	
@@ -158,7 +158,14 @@ public class Sudoku extends LatinSquare {
 	 */
 	private void setCells() {
 		
-		// TODO: ...
+		for(int row = 0; row < this.iSize; row++) {
+			for(int col = 0; col < this.iSize; col++) {
+				Cell c = new Cell(row, col);
+				c.setValidValues​(new HashSet(Arrays.asList(c.getValidValues())));
+				c.shuffleValidValues();
+				this.cells.put(c.hashCode(), c);
+			}
+		}
 		
 	}
 	
@@ -175,7 +182,21 @@ public class Sudoku extends LatinSquare {
 	 */
 	private boolean fillRemaining​(Sudoku.Cell c) {
 		
-		// TODO: ...
+		if(c == null)
+			return false;
+		
+		for(int num : c.getValidValues()) {
+			
+			if(this.isValidValue​(c, num)) {
+				this.getPuzzle()[c.getiRow()][c.getiCol()] = num;
+				
+				if(fillRemaining​(c.getNextCell​(c, num)))
+					return true;
+				
+				this.getPuzzle()[c.getiRow()][c.getiCol()] = 0;
+			}
+			
+		}
 		
 		return false;
 		
