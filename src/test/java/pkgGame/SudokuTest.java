@@ -23,9 +23,53 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// test with a valid value
 		
-		//Sudoku s = new Sudoku(9);
+		/*
+		int[][] puzzle = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 }, { 6, 0, 0, 1, 9, 5, 0, 0, 0 }, { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+				{ 8, 0, 0, 0, 6, 0, 0, 0, 3 }, { 4, 0, 0, 8, 0, 3, 0, 0, 1 }, { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+				{ 0, 6, 0, 0, 0, 0, 2, 8, 0 }, { 0, 0, 0, 4, 1, 9, 0, 0, 5 }, { 0, 0, 0, 0, 8, 0, 0, 7, 9 } };
 		
-		//assertTrue(...);
+		Sudoku s = new Sudoku(puzzle);
+		
+		s.setCells();
+		
+		Sudoku.Cell c = new Sudoku.Cell(0, 8);
+
+		assertTrue(s.isValidValue​(c, 2)); 
+		*/
+		int[][] puzzle = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 }, { 6, 0, 0, 1, 9, 5, 0, 0, 0 }, { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+				{ 8, 0, 0, 0, 6, 0, 0, 0, 3 }, { 4, 0, 0, 8, 0, 3, 0, 0, 1 }, { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+				{ 0, 6, 0, 0, 0, 0, 2, 8, 0 }, { 0, 0, 0, 4, 1, 9, 0, 0, 5 }, { 0, 0, 0, 0, 8, 0, 0, 7, 9 } };
+		Sudoku s;
+		
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
+			Constructor constructor = c.getConstructor(new Class[] { int[][].class });
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(puzzle);
+			
+			Method mSetCells = c.getDeclaredMethod("setCells", new Class[] { int.class });
+			Method mIsValidValue = c.getDeclaredMethod("isValidValue", new Class[] { int.class });
+			
+			mSetCells.invoke(c, null);
+			
+			assertTrue((Boolean)mIsValidValue.invoke(s, 2) == true);
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
@@ -35,9 +79,40 @@ public class SudokuTest {
 		// TODO: Yisi will do this...
 		// test with a NON-valid value
 		
-		Sudoku s = new Sudoku(9);
+		int[][] puzzle = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 }, { 6, 0, 0, 1, 9, 5, 0, 0, 0 }, { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+				{ 8, 0, 0, 0, 6, 0, 0, 0, 3 }, { 4, 0, 0, 8, 0, 3, 0, 0, 1 }, { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+				{ 0, 6, 0, 0, 0, 0, 2, 8, 0 }, { 0, 0, 0, 4, 1, 9, 0, 0, 5 }, { 0, 0, 0, 0, 8, 0, 0, 7, 9 } };
+		Sudoku s;
 		
-		//assertTrue(...);
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku.Cell");
+			Constructor constructor = c.getConstructor(new Class[] { int[][].class });
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(puzzle);
+			
+			Method mSetCells = c.getDeclaredMethod("setCells", new Class[] { int.class });
+			Method mIsValidValue = c.getDeclaredMethod("isValidValue", new Class[] { int.class });
+			
+			mSetCells.invoke(c, null);
+			
+			assertTrue((Boolean)mIsValidValue.invoke(s, 5) == false);
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 
 	}
 	
