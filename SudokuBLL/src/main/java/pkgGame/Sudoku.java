@@ -47,6 +47,13 @@ public class Sudoku extends LatinSquare implements Serializable {
 
 	private HashMap<Integer, SudokuCell> cells = new HashMap<Integer, SudokuCell>();
 	
+	
+	private Sudoku() {
+		
+		// TODO: set diffficulty to easy...
+		
+	}
+	
 	/**
 	 * Sudoku - for Lab #2... do the following:
 	 * 
