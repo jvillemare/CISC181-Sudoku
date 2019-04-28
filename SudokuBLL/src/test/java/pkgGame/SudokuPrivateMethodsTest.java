@@ -3,9 +3,11 @@ package pkgGame;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -124,4 +126,49 @@ public class SudokuPrivateMethodsTest {
 		}
 
 	}
+
+
+	@Test
+	public void Sudoku_RemoveCells() throws NoSuchFieldException{
+		
+		Sudoku s = null;
+				
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] {int.class});
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(9);
+
+			Method mRemoveCells = c.getDeclaredMethod("removeCells", new Class[] {});
+			
+			mRemoveCells.invoke(s, null);
+			
+			Field cellsField = Sudoku.class.getDeclaredField("cells");
+			cellsField.setAccessible(true);
+			
+			HashMap<Integer, Object> cells = (HashMap<Integer, Object>) cellsField.get(s);
+			
+			assertTrue(cells.size() < 81);
+			// for bert: we expect after calling removeCells to be missing
+			// a few cells. not standard, but technically works.
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
+
+	}
+	
 }
