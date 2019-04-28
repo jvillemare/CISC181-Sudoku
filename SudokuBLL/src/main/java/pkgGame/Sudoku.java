@@ -44,8 +44,15 @@ public class Sudoku extends LatinSquare implements Serializable {
 	 */
 
 	private int iSqrtSize;
+	
+	private eGameDifficulty eGameDifficulty;
 
 	private HashMap<Integer, SudokuCell> cells = new HashMap<Integer, SudokuCell>();
+
+	public Sudoku(int iSize, eGameDifficulty difficulty) {
+		this(iSize);
+		this.eGameDifficulty = difficulty;
+	}
 	
 	/**
 	 * Sudoku - for Lab #2... do the following:
@@ -145,6 +152,13 @@ public class Sudoku extends LatinSquare implements Serializable {
 				cells.put(c.hashCode(), c);
 			}
 		}
+	}
+	
+	private void RemoveCells() {
+		
+		while(!IsDifficultyMet(PossibleValuesMultiplier(this.cells)))
+			this.cells.remove(Math.random() * this.iSize * this.iSize);
+		
 	}
 
 	private void ShowAvailableValues() {
