@@ -30,14 +30,14 @@ public class SudokuPrivateMethodsTest {
 
 		try {
 			Class<?> c = Class.forName("pkgGame.Sudoku");
-			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			Constructor constructor = c.getConstructor(new Class[] { int.class, eGameDifficulty.class });
 			constructor.setAccessible(true);
-			s1 = (Sudoku) constructor.newInstance(iPuzzleSize);
+			s1 = (Sudoku) constructor.newInstance(iPuzzleSize, eGameDifficulty.EASY);
 
 			Method misDifficultyMet = c.getDeclaredMethod("isDifficultyMet", new Class[] { int.class });
 
 			misDifficultyMet.setAccessible(true);
-			iActualMet = (boolean)misDifficultyMet.invoke(s1, 7);
+			iActualMet = (boolean)misDifficultyMet.invoke(s1, 9000);
 
 			assertTrue(iExpectedMet == iActualMet);
 
@@ -68,20 +68,20 @@ public class SudokuPrivateMethodsTest {
 		
 		Sudoku s1 = null;
 		int iPuzzleSize = 9;
-		boolean iExpectedMet = true;
+		boolean iExpectedMet = false;
 		
 		boolean iActualMet;
 
 		try {
 			Class<?> c = Class.forName("pkgGame.Sudoku");
-			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			Constructor constructor = c.getConstructor(new Class[] { int.class, eGameDifficulty.class });
 			constructor.setAccessible(true);
-			s1 = (Sudoku) constructor.newInstance(iPuzzleSize);
+			s1 = (Sudoku) constructor.newInstance(iPuzzleSize, eGameDifficulty.HARD);
 
 			Method misDifficultyMet = c.getDeclaredMethod("isDifficultyMet", new Class[] { int.class });
 
 			misDifficultyMet.setAccessible(true);
-			iActualMet = (boolean)misDifficultyMet.invoke(s1, 3);
+			iActualMet = (boolean)misDifficultyMet.invoke(s1, 1);
 
 			assertTrue(iExpectedMet == iActualMet);
 
