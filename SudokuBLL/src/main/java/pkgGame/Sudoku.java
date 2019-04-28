@@ -47,12 +47,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 
 	private HashMap<Integer, SudokuCell> cells = new HashMap<Integer, SudokuCell>();
 	
-	
-	private Sudoku() {
-		
-		// TODO: set diffficulty to easy...
-		
-	}
+	private Sudoku() { this.eGameDifficulty = EASY; }
 	
 	/**
 	 * Sudoku - for Lab #2... do the following:
@@ -130,6 +125,15 @@ public class Sudoku extends LatinSquare implements Serializable {
 		} else {
 			return false;
 		}
+	}
+	
+	private boolean isDifficultyMet(int iPossibleValues) {
+		
+		int difficulty = this.eGameDifficulty.getiDifficulty();
+		int a = 3;
+		int b = iPossibleValues;
+		return difficulty < Math.pow(a, b) + 300;
+		
 	}
 	/**
 	 * SetCells - purpose of this method is to create a HashMap of all the cells

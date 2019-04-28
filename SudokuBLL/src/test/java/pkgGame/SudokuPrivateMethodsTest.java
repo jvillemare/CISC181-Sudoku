@@ -16,6 +16,95 @@ public class SudokuPrivateMethodsTest {
 			System.out.print("*");
 		System.out.println();
 	}
+	
+	@Test
+	public void isDifficultyMet_Test1() throws NoSuchMethodException, InvocationTargetException {
+		
+		// expecting true, difficulty should easily be met
+		
+		Sudoku s1 = null;
+		int iPuzzleSize = 9;
+		boolean iExpectedMet = true;
+		
+		boolean iActualMet;
+
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			constructor.setAccessible(true);
+			s1 = (Sudoku) constructor.newInstance(iPuzzleSize);
+
+			Method misDifficultyMet = c.getDeclaredMethod("isDifficultyMet", new Class[] { int.class });
+
+			misDifficultyMet.setAccessible(true);
+			iActualMet = (boolean)misDifficultyMet.invoke(s1, 7);
+
+			assertTrue(iExpectedMet == iActualMet);
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			throw e;
+			//fail("InvocationTargetException, Invalid size");
+		}
+		
+	}
+	
+	@Test
+	public void isDifficultyMet_Test2() throws NoSuchMethodException, InvocationTargetException {
+		
+		// expecting false, difficulty should easily be met
+		
+		Sudoku s1 = null;
+		int iPuzzleSize = 9;
+		boolean iExpectedMet = true;
+		
+		boolean iActualMet;
+
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			constructor.setAccessible(true);
+			s1 = (Sudoku) constructor.newInstance(iPuzzleSize);
+
+			Method misDifficultyMet = c.getDeclaredMethod("isDifficultyMet", new Class[] { int.class });
+
+			misDifficultyMet.setAccessible(true);
+			iActualMet = (boolean)misDifficultyMet.invoke(s1, 3);
+
+			assertTrue(iExpectedMet == iActualMet);
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			throw e;
+			//fail("InvocationTargetException, Invalid size");
+		}
+		
+	}
+	
 
 	@Test
 	public void Sudoku_Test_SetRegion() {
