@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -147,6 +148,14 @@ public class Sudoku extends LatinSquare implements Serializable {
 		}
 	}
 
+	private void SetRemaingCells() {
+		//this.setlstValidValues(getAllValidCellValues(this.cells.iCol, this.cells.iRow));
+		
+		for(Map.Entry<Integer, SudokuCell> entry : cells.entrySet()) {
+			//if(this.getPuzzle()[entry.value()][])
+		}
+	}
+	
 	private void ShowAvailableValues() {
 		for (int iRow = 0; iRow < iSize; iRow++) {
 			for (int iCol = 0; iCol < iSize; iCol++) {
