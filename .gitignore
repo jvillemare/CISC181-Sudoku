@@ -1,4 +1,8 @@
-target/
+#Javadoc
+*/target/
+*.html
+*.css
+*.js
 
 .DS_Store
 
