@@ -16,6 +16,20 @@ public class SudokuPrivateMethodsTest {
 			System.out.print("*");
 		System.out.println();
 	}
+	
+	@Test
+	public void possibleValuesMultiplier_Test() {
+		
+		// (easy comes from the enum we defined in this lab)
+		// ... new Sudoku(9, EASY)
+		
+		// use junit inflections to invoke possibleValues...
+		
+		// justify in comments 
+		
+		// assertTrue(possibleValues < 100) for easy because easy
+		
+	}
 
 	@Test
 	public void Sudoku_Test_SetRegion() {

@@ -8,7 +8,20 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import pkgEnum.eGameDifficulty;
+
 public class SudokuTest {
+	
+	@Test
+	public void sudoku2arg_test() {
+		int size = 9;
+		
+		Sudoku s = new Sudoku(size, eGameDifficulty.EASY);
+		
+		assertTrue(s.isPartialSudoku());
+		assertTrue(s.getiSize()==9);
+		s.PrintPuzzle();
+	}
 
 /*	private void PrintStars() {
 		for (int i = 0; i < 50; i++)
