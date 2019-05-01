@@ -3,6 +3,7 @@ package pkgGame;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
@@ -13,14 +14,23 @@ import pkgEnum.eGameDifficulty;
 public class SudokuTest {
 	
 	@Test
-	public void sudoku2arg_test() {
+	public void sudokuTwoArgConstructor_test() {
 		int size = 9;
 		
 		Sudoku s = new Sudoku(size, eGameDifficulty.EASY);
 		
-		assertTrue(s.isPartialSudoku());
+		assertTrue(s.isSudoku());
 		assertTrue(s.getiSize()==9);
-		s.PrintPuzzle();
+
+		Field fDifficulty = Sudoku.class.
+		            getDeclaredField("eGameDifficulty");
+
+		fDifficulty.setAccessible(true);
+		
+		eGameDifficulty difficulty = (eGameDifficulty) fDifficulty.get(s);
+		
+		assertTrue(difficulty.getiDifficulty() == eGameDifficulty.EASY.getiDifficulty());
+		
 	}
 
 /*	private void PrintStars() {
