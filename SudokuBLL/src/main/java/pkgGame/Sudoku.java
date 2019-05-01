@@ -159,7 +159,6 @@ public class Sudoku extends LatinSquare implements Serializable {
 				while(i > 0) {
 					if(isValidValue(row, col, i))
 						validValues.add(i);
-					
 					i--;
 				}
 				
