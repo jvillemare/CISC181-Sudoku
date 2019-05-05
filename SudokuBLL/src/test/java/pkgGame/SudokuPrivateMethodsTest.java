@@ -3,6 +3,7 @@ package pkgGame;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat.Field;
@@ -11,6 +12,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import org.junit.Test;
+
+import pkgEnum.eGameDifficulty;
 
 public class SudokuPrivateMethodsTest {
 
@@ -35,6 +38,54 @@ public class SudokuPrivateMethodsTest {
 			
 			mSetRemainingCells.setAccessible(true);
 			mSetRemainingCells.invoke(s, null);
+     } catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+      fail("InvocationTargetException, Invalid size");
+		}
+		
+		Field privateCellsField = Sudoku.class.
+			    getDeclaredField("cells");
+
+		privateCellsField.setAccessible(true);
+
+		HashMap<Integer, Object> cells = (HashMap<Integer, Object>) privateCellsField.get(s);
+		
+		assertTrue(cells.size() == 81);
+  }
+	public void isDifficultyMet_Test1() throws NoSuchMethodException, InvocationTargetException {
+		
+		// expecting true, difficulty should easily be met
+		
+		Sudoku s1 = null;
+		int iPuzzleSize = 9;
+		boolean iExpectedMet = true;
+		
+		boolean iActualMet;
+
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class, eGameDifficulty.class });
+			constructor.setAccessible(true);
+			s1 = (Sudoku) constructor.newInstance(iPuzzleSize, eGameDifficulty.EASY);
+
+			Method misDifficultyMet = c.getDeclaredMethod("isDifficultyMet", new Class[] { int.class });
+
+			misDifficultyMet.setAccessible(true);
+			iActualMet = (boolean)misDifficultyMet.invoke(s1, 9000);
+
+			assertTrue(iExpectedMet == iActualMet);
+
 		} catch (ClassNotFoundException e1) {
 			fail("ClassNotFoundException");
 		} catch (NoSuchMethodException e) {
@@ -48,17 +99,96 @@ public class SudokuPrivateMethodsTest {
 		} catch (IllegalArgumentException e) {
 			fail("IllegalArgumentException");
 		} catch (InvocationTargetException e) {
-			fail("InvocationTargetException, Invalid size");
+
+			throw e;
+			//fail("InvocationTargetException, Invalid size");
 		}
 		
-		Field privateCellsField = Sudoku.class.
-			    getDeclaredField("cells");
-
-		privateCellsField.setAccessible(true);
-
-		HashMap<Integer, Object> cells = (HashMap<Integer, Object>) privateCellsField.get(s);
+	}
+	
+	@Test
+	public void isDifficultyMet_Test2() throws NoSuchMethodException, InvocationTargetException {
 		
-		assertTrue(cells.size() == 81);
+		// expecting false, difficulty should easily be met
+		
+		Sudoku s1 = null;
+		int iPuzzleSize = 9;
+		boolean iExpectedMet = false;
+		
+		boolean iActualMet;
+
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class, eGameDifficulty.class });
+			constructor.setAccessible(true);
+			s1 = (Sudoku) constructor.newInstance(iPuzzleSize, eGameDifficulty.HARD);
+
+			Method misDifficultyMet = c.getDeclaredMethod("isDifficultyMet", new Class[] { int.class });
+
+			misDifficultyMet.setAccessible(true);
+			iActualMet = (boolean)misDifficultyMet.invoke(s1, 1);
+
+			assertTrue(iExpectedMet == iActualMet);
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			throw e;
+			//fail("InvocationTargetException, Invalid size");
+		}
+		
+	}
+
+	public void possibleValuesMultiplier_Test() throws Exception{
+
+		
+		// (easy comes from the enum we defined in this lab)
+		// ... new Sudoku(9, EASY)
+		
+		// use junit inflections to invoke possibleValues...
+		
+		// justify in comments 
+		
+		// assertTrue(possibleValues < 500) for easy because easy is less than 500
+		
+		Sudoku s = new Sudoku(9, eGameDifficulty.EASY);
+		
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			constructor.setAccessible(true);
+
+			Method mPossibleValuesMultiplier = c.getDeclaredMethod("possibleValuesMultiplier");
+			mPossibleValuesMultiplier.setAccessible(true);
+			System.out.println(mPossibleValuesMultiplier.invoke(s));
+			int possibleValues = (int) mPossibleValuesMultiplier.invoke(s);
+			assertTrue(possibleValues < 500);
+			
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+			fail("SecurityException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 		
 	}
 
@@ -169,4 +299,49 @@ public class SudokuPrivateMethodsTest {
 		}
 
 	}
+
+
+	@Test
+	public void Sudoku_RemoveCells() throws NoSuchFieldException{
+		
+		Sudoku s = null;
+				
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] {int.class});
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(9);
+
+			Method mRemoveCells = c.getDeclaredMethod("removeCells", new Class[] {});
+			
+			mRemoveCells.invoke(s, null);
+			
+			Field cellsField = Sudoku.class.getDeclaredField("cells");
+			cellsField.setAccessible(true);
+			
+			HashMap<Integer, Object> cells = (HashMap<Integer, Object>) cellsField.get(s);
+			
+			assertTrue(cells.size() < 81);
+			// for bert: we expect after calling removeCells to be missing
+			// a few cells. not standard, but technically works.
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
+
+	}
+	
 }
