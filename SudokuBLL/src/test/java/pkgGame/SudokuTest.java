@@ -31,7 +31,6 @@ public class SudokuTest {
 		} catch (NoSuchMethodException e) {
 			fail("NoSuchMethodException");
 		} catch (SecurityException e) {
-
 			fail("SecurityException");
 		} catch (InstantiationException e) {
 			fail("InstantiationException");
@@ -46,7 +45,7 @@ public class SudokuTest {
 	}
 	
 	@Test
-	public void sudokuTwoArgConstructor_test() {
+	public void sudokuTwoArgConstructor_test() throws Exception {
 
 		int size = 9;
 		

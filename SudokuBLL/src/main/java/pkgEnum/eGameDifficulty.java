@@ -30,7 +30,7 @@ public enum eGameDifficulty {
 		return HARD;
 	}
 	
-	int	getiDifficulty() {
+	public int	getiDifficulty() {
 		return iDifficulty;
 	}
 	

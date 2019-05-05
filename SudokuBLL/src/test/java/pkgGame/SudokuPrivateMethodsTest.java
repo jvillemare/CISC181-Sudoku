@@ -6,7 +6,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.DateFormat.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,11 +23,13 @@ public class SudokuPrivateMethodsTest {
 	}
 	
 	@Test
-	public void setRemainingCells_Test() {
+	public void setRemainingCells_Test() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		
 		Sudoku s = null;
+		int iPuzzleSize = 9;
 		
 		try {
+			
 			Class<?> c = Class.forName("pkgGame.Sudoku");
 			Constructor constructor = c.getConstructor(new Class[] { int.class });
 			constructor.setAccessible(true);
@@ -38,7 +39,8 @@ public class SudokuPrivateMethodsTest {
 			
 			mSetRemainingCells.setAccessible(true);
 			mSetRemainingCells.invoke(s, null);
-     } catch (ClassNotFoundException e1) {
+			
+		} catch (ClassNotFoundException e1) {
 			fail("ClassNotFoundException");
 		} catch (NoSuchMethodException e) {
 			fail("NoSuchMethodException");
@@ -99,9 +101,7 @@ public class SudokuPrivateMethodsTest {
 		} catch (IllegalArgumentException e) {
 			fail("IllegalArgumentException");
 		} catch (InvocationTargetException e) {
-
 			throw e;
-			//fail("InvocationTargetException, Invalid size");
 		}
 		
 	}
@@ -118,6 +118,7 @@ public class SudokuPrivateMethodsTest {
 		boolean iActualMet;
 
 		try {
+			
 			Class<?> c = Class.forName("pkgGame.Sudoku");
 			Constructor constructor = c.getConstructor(new Class[] { int.class, eGameDifficulty.class });
 			constructor.setAccessible(true);
@@ -145,26 +146,16 @@ public class SudokuPrivateMethodsTest {
 			fail("IllegalArgumentException");
 		} catch (InvocationTargetException e) {
 			throw e;
-			//fail("InvocationTargetException, Invalid size");
 		}
 		
 	}
 
 	public void possibleValuesMultiplier_Test() throws Exception{
-
-		
-		// (easy comes from the enum we defined in this lab)
-		// ... new Sudoku(9, EASY)
-		
-		// use junit inflections to invoke possibleValues...
-		
-		// justify in comments 
-		
-		// assertTrue(possibleValues < 500) for easy because easy is less than 500
 		
 		Sudoku s = new Sudoku(9, eGameDifficulty.EASY);
 		
 		try {
+			
 			Class<?> c = Class.forName("pkgGame.Sudoku");
 			Constructor constructor = c.getConstructor(new Class[] { int.class });
 			constructor.setAccessible(true);
@@ -173,9 +164,9 @@ public class SudokuPrivateMethodsTest {
 			mPossibleValuesMultiplier.setAccessible(true);
 			System.out.println(mPossibleValuesMultiplier.invoke(s));
 			int possibleValues = (int) mPossibleValuesMultiplier.invoke(s);
+			
 			assertTrue(possibleValues < 500);
 			
-
 		} catch (ClassNotFoundException e1) {
 			fail("ClassNotFoundException");
 		} catch (NoSuchMethodException e) {
@@ -235,7 +226,6 @@ public class SudokuPrivateMethodsTest {
 		} catch (NoSuchMethodException e) {
 			fail("NoSuchMethodException");
 		} catch (SecurityException e) {
-
 			fail("SecurityException");
 		} catch (InstantiationException e) {
 			fail("InstantiationException");
@@ -286,7 +276,6 @@ public class SudokuPrivateMethodsTest {
 		} catch (NoSuchMethodException e) {
 			fail("NoSuchMethodException");
 		} catch (SecurityException e) {
-
 			fail("SecurityException");
 		} catch (InstantiationException e) {
 			fail("InstantiationException");
@@ -330,7 +319,6 @@ public class SudokuPrivateMethodsTest {
 		} catch (NoSuchMethodException e) {
 			fail("NoSuchMethodException");
 		} catch (SecurityException e) {
-
 			fail("SecurityException");
 		} catch (InstantiationException e) {
 			fail("InstantiationException");

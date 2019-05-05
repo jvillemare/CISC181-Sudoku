@@ -51,7 +51,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 
 	private HashMap<Integer, SudokuCell> cells = new HashMap<Integer, SudokuCell>();
 
-	public Sudoku(int iSize, eGameDifficulty difficulty) {
+	public Sudoku(int iSize, eGameDifficulty difficulty) throws Exception {
 		this(iSize);
 		this.eGameDifficulty = difficulty;
 	}
@@ -132,7 +132,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 		
 		int difficulty = 1;
 		
-		this.setRemainingCells();
+		this.SetRemainingCells();
 		
 		Map<java.lang.Integer, SudokuCell> map = this.cells;
 		
@@ -196,9 +196,9 @@ public class Sudoku extends LatinSquare implements Serializable {
 		}
 	}
 	
-	private void RemoveCells() {
+	private void RemoveCells() throws Exception {
 		
-		while(!IsDifficultyMet(PossibleValuesMultiplier(this.cells)))
+		while(!isDifficultyMet(possibleValuesMultiplier()))
 			this.cells.remove(Math.random() * this.iSize * this.iSize);
 		
 	}
