@@ -46,8 +46,17 @@ public class Sudoku extends LatinSquare implements Serializable {
 	 */
 
 	private int iSqrtSize;
+	
+	private eGameDifficulty eGameDifficulty;
 
 	private HashMap<Integer, SudokuCell> cells = new HashMap<Integer, SudokuCell>();
+
+	public Sudoku(int iSize, eGameDifficulty difficulty) {
+		this(iSize);
+		this.eGameDifficulty = difficulty;
+	}
+	
+	private Sudoku() { this.eGameDifficulty = eGameDifficulty.EASY; }
 	
 	/**
 	 * Sudoku - for Lab #2... do the following:
@@ -155,6 +164,15 @@ public class Sudoku extends LatinSquare implements Serializable {
 			return false;
 		}
 	}
+	
+	private boolean isDifficultyMet(int iPossibleValues) {
+		
+		int difficulty = this.eGameDifficulty.getiDifficulty();
+		int a = 3;
+		int b = iPossibleValues;
+		return difficulty < Math.pow(a, b) + 300;
+		
+	}
 	/**
 	 * SetCells - purpose of this method is to create a HashMap of all the cells
 	 * in the puzzle.  If the puzzle is 9X9, there will be 81 cells in the puzzle.
@@ -176,6 +194,13 @@ public class Sudoku extends LatinSquare implements Serializable {
 				cells.put(c.hashCode(), c);
 			}
 		}
+	}
+	
+	private void RemoveCells() {
+		
+		while(!IsDifficultyMet(PossibleValuesMultiplier(this.cells)))
+			this.cells.remove(Math.random() * this.iSize * this.iSize);
+		
 	}
 
 	private void ShowAvailableValues() {
