@@ -4,11 +4,56 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.junit.Test;
 
+import pkgEnum.eGameDifficulty;
+
 public class SudokuTest {
+	
+	@Test
+	public void privateNoArgSudokuConstructor_Test() {
+		
+		Sudoku s1 = null;
+		
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { });
+			constructor.setAccessible(true);
+			s1 = (Sudoku) constructor.newInstance();
+
+			assertTrue(s1 instanceof Sudoku);
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
+		
+	}
+	
+	@Test
+	public void sudoku2arg_test() {
+		int size = 9;
+		
+		Sudoku s = new Sudoku(size, eGameDifficulty.EASY);
+		
+		assertTrue(s.isPartialSudoku());
+		assertTrue(s.getiSize()==9);
+		s.PrintPuzzle();
+	}
 
 /*	private void PrintStars() {
 		for (int i = 0; i < 50; i++)

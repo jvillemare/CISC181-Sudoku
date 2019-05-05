@@ -7,9 +7,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
+import pkgEnum.eGameDifficulty;
 import pkgEnum.ePuzzleViolation;
 import pkgHelper.LatinSquare;
 import pkgHelper.PuzzleViolation;
@@ -44,8 +46,15 @@ public class Sudoku extends LatinSquare implements Serializable {
 	 */
 
 	private int iSqrtSize;
+	
+	private eGameDifficulty eGameDifficulty;
 
 	private HashMap<Integer, SudokuCell> cells = new HashMap<Integer, SudokuCell>();
+
+	public Sudoku(int iSize, eGameDifficulty difficulty) {
+		this(iSize);
+		this.eGameDifficulty = difficulty;
+	}
 	
 	private Sudoku() { this.eGameDifficulty = eGameDifficulty.EASY; }
 	
@@ -103,7 +112,41 @@ public class Sudoku extends LatinSquare implements Serializable {
 		}
 
 	}
+	
+	public Sudoku(int iSize, eGameDifficulty e) {
+		
+	}
+	
+	private Sudoku() {
+		// TODO Auto-generated constructor stub
+	}
 
+	/**
+	 * For Bert with <3: We somewhat understand that you would want this to be static method with the cells HashMap
+	 * passed in so that we don't affect the cells; practicing isolation there. But, setting the list of valid
+	 * values for each cell using <code>this.setRemainingCells()</code> wouldn't conflict with any other method,
+	 * and we need to set the list of valid values for cells at some point.
+	 * 
+	 * It makes sense to have this method be non-static and repeatedly call setRemainingCells, as the list of valid
+	 * values will grow as setRemainingCells may remove cells.
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	private int possibleValuesMultiplier() throws Exception {
+		
+		int difficulty = 1;
+		
+		this.setRemainingCells();
+		
+		Map<java.lang.Integer, SudokuCell> map = this.cells;
+		
+		for (Map.Entry<java.lang.Integer, SudokuCell> entry : map.entrySet())
+			difficulty = (entry.getValue().getLstValidValues().size() + 1) * difficulty;
+			
+		return difficulty;
+		
+	}
 	
 	/**
 	 * getiSize - the UI needs to know the size of the puzzle
@@ -156,6 +199,13 @@ public class Sudoku extends LatinSquare implements Serializable {
 				cells.put(c.hashCode(), c);
 			}
 		}
+	}
+	
+	private void RemoveCells() {
+		
+		while(!IsDifficultyMet(PossibleValuesMultiplier(this.cells)))
+			this.cells.remove(Math.random() * this.iSize * this.iSize);
+		
 	}
 
 	private void ShowAvailableValues() {
