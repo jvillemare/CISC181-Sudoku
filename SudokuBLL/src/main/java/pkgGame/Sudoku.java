@@ -203,6 +203,25 @@ public class Sudoku extends LatinSquare implements Serializable {
 		
 	}
 
+	private void SetRemainingCells() {
+		for(int row = 0; row < this.iSqrtSize; row++) {
+			for(int col = 0; col < this.iSqrtSize; col++) {
+				Cell c = new Cell(row, col);
+				
+				int i = this.iSqrtSize;
+				HashSet<Integer> validValues = new HashSet<Integer>(9);
+				
+				while(i > 0) {
+					if(isValidValue(row, col, i))
+						validValues.add(i);
+					i--;
+				}
+				
+				this.cells.get(c.hashCode()).setlstValidValues(validValues);
+			}
+		}
+	}
+	
 	private void ShowAvailableValues() {
 		for (int iRow = 0; iRow < iSize; iRow++) {
 			for (int iCol = 0; iCol < iSize; iCol++) {

@@ -6,8 +6,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DateFormat.Field;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -22,6 +24,45 @@ public class SudokuPrivateMethodsTest {
 	}
 	
 	@Test
+	public void setRemainingCells_Test() {
+		
+		Sudoku s = null;
+		
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			constructor.setAccessible(true);
+			s = (Sudoku) constructor.newInstance(iPuzzleSize);
+
+			Method mSetRemainingCells = c.getDeclaredMethod("setRemainingCells", new Class[] { });
+			
+			mSetRemainingCells.setAccessible(true);
+			mSetRemainingCells.invoke(s, null);
+     } catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+			fail("SecurityException");
+		} catch (InstantiationException e) {
+			fail("InstantiationException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+      fail("InvocationTargetException, Invalid size");
+		}
+		
+		Field privateCellsField = Sudoku.class.
+			    getDeclaredField("cells");
+
+		privateCellsField.setAccessible(true);
+
+		HashMap<Integer, Object> cells = (HashMap<Integer, Object>) privateCellsField.get(s);
+		
+		assertTrue(cells.size() == 81);
+  }
 	public void isDifficultyMet_Test1() throws NoSuchMethodException, InvocationTargetException {
 		
 		// expecting true, difficulty should easily be met
@@ -50,7 +91,6 @@ public class SudokuPrivateMethodsTest {
 		} catch (NoSuchMethodException e) {
 			fail("NoSuchMethodException");
 		} catch (SecurityException e) {
-
 			fail("SecurityException");
 		} catch (InstantiationException e) {
 			fail("InstantiationException");
@@ -59,6 +99,7 @@ public class SudokuPrivateMethodsTest {
 		} catch (IllegalArgumentException e) {
 			fail("IllegalArgumentException");
 		} catch (InvocationTargetException e) {
+
 			throw e;
 			//fail("InvocationTargetException, Invalid size");
 		}

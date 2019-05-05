@@ -1,8 +1,1 @@
-/**
- * 
- */
-/**
- * @author Dad
- *
- */
 package pkgEmpty;
