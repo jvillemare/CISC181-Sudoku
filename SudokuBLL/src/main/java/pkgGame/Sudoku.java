@@ -56,6 +56,8 @@ public class Sudoku extends LatinSquare implements Serializable {
 		this.eGameDifficulty = difficulty;
 	}
 	
+	private Sudoku() { this.eGameDifficulty = eGameDifficulty.EASY; }
+	
 	/**
 	 * Sudoku - for Lab #2... do the following:
 	 * 
@@ -166,6 +168,15 @@ public class Sudoku extends LatinSquare implements Serializable {
 		} else {
 			return false;
 		}
+	}
+	
+	private boolean isDifficultyMet(int iPossibleValues) {
+		
+		int difficulty = this.eGameDifficulty.getiDifficulty();
+		int a = 3;
+		int b = iPossibleValues;
+		return difficulty < Math.pow(a, b) + 300;
+		
 	}
 	/**
 	 * SetCells - purpose of this method is to create a HashMap of all the cells
