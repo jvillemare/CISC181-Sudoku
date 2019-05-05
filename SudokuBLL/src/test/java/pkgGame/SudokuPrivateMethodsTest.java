@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
+import pkgEnum.eGameDifficulty;
+
 public class SudokuPrivateMethodsTest {
 
 	private void PrintStars() {
@@ -107,7 +109,8 @@ public class SudokuPrivateMethodsTest {
 		
 	}
 
-	public void possibleValuesMultiplier_Test() {
+	public void possibleValuesMultiplier_Test() throws Exception{
+
 		
 		// (easy comes from the enum we defined in this lab)
 		// ... new Sudoku(9, EASY)
@@ -116,7 +119,35 @@ public class SudokuPrivateMethodsTest {
 		
 		// justify in comments 
 		
-		// assertTrue(possibleValues < 100) for easy because easy
+		// assertTrue(possibleValues < 500) for easy because easy is less than 500
+		
+		Sudoku s = new Sudoku(9, eGameDifficulty.EASY);
+		
+		try {
+			Class<?> c = Class.forName("pkgGame.Sudoku");
+			Constructor constructor = c.getConstructor(new Class[] { int.class });
+			constructor.setAccessible(true);
+
+			Method mPossibleValuesMultiplier = c.getDeclaredMethod("possibleValuesMultiplier");
+			mPossibleValuesMultiplier.setAccessible(true);
+			System.out.println(mPossibleValuesMultiplier.invoke(s));
+			int possibleValues = (int) mPossibleValuesMultiplier.invoke(s);
+			assertTrue(possibleValues < 500);
+			
+
+		} catch (ClassNotFoundException e1) {
+			fail("ClassNotFoundException");
+		} catch (NoSuchMethodException e) {
+			fail("NoSuchMethodException");
+		} catch (SecurityException e) {
+			fail("SecurityException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException, Invalid size");
+		}
 		
 	}
 

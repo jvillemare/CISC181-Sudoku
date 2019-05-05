@@ -113,13 +113,8 @@ public class Sudoku extends LatinSquare implements Serializable {
 
 	}
 	
-	public Sudoku(int iSize, eGameDifficulty e) {
-		
-	}
 	
-	private Sudoku() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
 	/**
 	 * For Bert with <3: We somewhat understand that you would want this to be static method with the cells HashMap
