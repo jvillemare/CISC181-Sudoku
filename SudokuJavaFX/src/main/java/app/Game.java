@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import pkgEnum.eGameDifficulty;
 import pkgGame.Sudoku;
 
 public class Game extends Application {
@@ -20,6 +21,10 @@ public class Game extends Application {
 	private Sudoku sudoku = null;
 
 
+	public void setStageWidth(int iWidth) {
+		primaryStage.setWidth(iWidth);
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -37,7 +42,8 @@ public class Game extends Application {
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
-			loader = new FXMLLoader(getClass().getResource("/game/app/view/GameBorder.fxml"));
+			loader = new FXMLLoader(getClass()
+					.getResource("/game/app/view/GameBorder.fxml"));
 			GameBorderPane = (BorderPane) loader.load();
 			Scene scene = new Scene(GameBorderPane);
 			primaryStage.setScene(scene);
@@ -70,9 +76,9 @@ public class Game extends Application {
 		return sudoku;
 	}
 
-	public Sudoku StartSudoku(int iSize) {
+	public Sudoku StartSudoku(int iSize, eGameDifficulty eGD) {
 		try {
-			this.sudoku = new Sudoku(iSize);
+			this.sudoku = new Sudoku(iSize, eGD);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,5 +86,17 @@ public class Game extends Application {
 		return this.sudoku;
 	}
 
+	public int GetGameSize()
+	{
+		return GBC.GetGameSize();
+	}
+	
+	public eGameDifficulty GetGameDifficulty()
+	{
+		return GBC.GetGameDifficulty();
+	}
+	public boolean getShowHints() {
+		return this.GBC.getShowHints();
+	}
 
 }

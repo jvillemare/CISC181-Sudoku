@@ -3,9 +3,7 @@ package pkgGame;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -13,57 +11,6 @@ import org.junit.Test;
 import pkgEnum.eGameDifficulty;
 
 public class SudokuTest {
-	
-	@Test
-	public void privateNoArgSudokuConstructor_Test() {
-		
-		Sudoku s1 = null;
-		
-		try {
-			Class<?> c = Class.forName("pkgGame.Sudoku");
-			Constructor constructor = c.getConstructor(new Class[] { });
-			constructor.setAccessible(true);
-			s1 = (Sudoku) constructor.newInstance();
-
-			assertTrue(s1 instanceof Sudoku);
-		} catch (ClassNotFoundException e1) {
-			fail("ClassNotFoundException");
-		} catch (NoSuchMethodException e) {
-			fail("NoSuchMethodException");
-		} catch (SecurityException e) {
-			fail("SecurityException");
-		} catch (InstantiationException e) {
-			fail("InstantiationException");
-		} catch (IllegalAccessException e) {
-			fail("IllegalAccessException");
-		} catch (IllegalArgumentException e) {
-			fail("IllegalArgumentException");
-		} catch (InvocationTargetException e) {
-			fail("InvocationTargetException, Invalid size");
-		}
-		
-	}
-	
-	@Test
-	public void sudokuTwoArgConstructor_test() throws Exception {
-
-		int size = 9;
-		
-		Sudoku s = new Sudoku(size, eGameDifficulty.EASY);
-		
-		assertTrue(s.isSudoku());
-		assertTrue(s.getiSize()==9);
-
-		Field fDifficulty = Sudoku.class.
-		            getDeclaredField("eGameDifficulty");
-
-		fDifficulty.setAccessible(true);
-		
-		eGameDifficulty difficulty = (eGameDifficulty) fDifficulty.get(s);
-		
-		assertTrue(difficulty.getiDifficulty() == eGameDifficulty.EASY.getiDifficulty());
-		
-	}
 
 /*	private void PrintStars() {
 		for (int i = 0; i < 50; i++)
@@ -183,9 +130,11 @@ public class SudokuTest {
 	public void Sudoku_FullPuzzle_1()
 	{
 		try {
-			Sudoku s1 = new Sudoku(9);
+			Sudoku s1 = new Sudoku(9, eGameDifficulty.HARD);
 			s1.PrintPuzzle();
-			assertTrue(s1.isSudoku());
+			assertTrue(s1.isPartialSudoku());
+			assertFalse(s1.isSudoku());
+			
 
 		} catch (Exception e) {
 			fail("Test failed to build a Sudoku");

@@ -1,37 +1,57 @@
 package pkgEnum;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public enum eGameDifficulty {
-	
-	EASY(101), MEDIUM(500), HARD(1000);
-	
-	private int iDifficulty;
-	
-	private static java.util.Map<java.lang.Integer,eGameDifficulty>	lookup;
 
-	private eGameDifficulty(int iDifficulty) {
-		if (iDifficulty >= 0 && iDifficulty < 100)
-			this.iDifficulty = 0;
-	    else if(iDifficulty >= 100 && iDifficulty < 500) 
-	    	this.iDifficulty = 101;
-		else if(iDifficulty >= 500 && iDifficulty < 1000) 
-			this.iDifficulty = 500;
-		else if(iDifficulty >= 1000) 
-			this.iDifficulty = 500;
-}
+	EASY(10,9), MEDIUM(30,7), HARD(60,5);
 	
-	static eGameDifficulty get(int iDifficulty) {
-		if (iDifficulty >= 0 && iDifficulty < 100)
-			return null;
-	    else if(iDifficulty >= 100 && iDifficulty < 500) 
-	    	return EASY;
-		else if(iDifficulty >= 500 && iDifficulty < 1000) 
-			return MEDIUM;
-		
-		return HARD;
+	private int iPctRemove;
+	private int iMaxMistakes;
+	
+	private static final Map<Integer, eGameDifficulty> 
+			lookup = new LinkedHashMap<Integer, eGameDifficulty>();
+
+	static {
+		for (eGameDifficulty d : eGameDifficulty.values()) {
+			lookup.put(d.getiPctRemove(), d);
+		}
 	}
 	
-	public int	getiDifficulty() {
-		return iDifficulty;
+	private eGameDifficulty(int iPctRemove, int iMaxMistakes)
+	{
+		this.iPctRemove = iPctRemove;
+		this.iMaxMistakes = iMaxMistakes;
 	}
+
+	private int getiPctRemove() {
+		return iPctRemove;
+	}
+	
+	
+	public int getiMaxMistakes() {
+		return iMaxMistakes;
+	}
+
+	public static eGameDifficulty get(int iPctRemove) {
+
+		Iterator it = lookup.entrySet().iterator();
+		eGameDifficulty eGD = null;
+
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			eGameDifficulty enumDifficulty = (eGameDifficulty) pair.getValue();
+			int iDifficultyValue = (int) pair.getKey();
+			if (iPctRemove >= iDifficultyValue) {
+				eGD = enumDifficulty;
+			}
+		}
+		return eGD;
+	}
+	
+	
+	
 	
 }
