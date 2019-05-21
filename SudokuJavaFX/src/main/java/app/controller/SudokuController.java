@@ -332,6 +332,11 @@ public class SudokuController implements Initializable {
 							if (paneTarget.getCell().getiCellValue() == 0) {
 								event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
 							}
+							
+							// if the user is trying to drop an invalid cell:
+							// 	if duprow: make the row red.
+							//	if dupcol: make the col red.
+							//	if dupregion: make the region red.
 						}
 						event.consume();
 					}
